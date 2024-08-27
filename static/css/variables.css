@@ -1,0 +1,28 @@
+:root {
+    --poppins: "Poppins", sans-serif;
+    --lato: "Lato", sans-serif;
+    --light: #ffffff;
+    --primary-color: #00e0c6;
+    --secondary-color: #00d4aa;
+    --error-color: rgb(255, 0, 85);
+    --light-blue: #cffffe;
+    --grey: #ebf5ff;
+    --dark-grey: #4c4c4c;
+    --green: rgb(0, 233, 78);
+    --light-green: #b5ffd7;
+    --dark: #342e37;
+    --red: #ff0077;
+    --light-red: #ffc6d7;
+    --blue: #0080ff;
+    --light-blue: #d3e5ff;
+    --color-shadow: #cccccc;
+  }
+
+  body.dark {
+    --light: #1a1a1a;
+    --grey: #253938;
+    --dark: #fbfbfb;
+    --dark-grey: #bebebe;
+    --color-shadow: #000000;
+
+  }

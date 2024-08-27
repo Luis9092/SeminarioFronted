@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {%include '/components/header.html'%}
+    <title>Inicio</title>
+  </head>
+  <body>
+    <!-- CONTENT -->
+    {% include '/components/menu.html' %}
+
+    <section id="content">
+      <!-- NAVBAR -->
+      {% include '/components/perfil.html' %}
+
+      <main>
+        <div class="head-title">
+          <div class="left">
+            <h1>Dashboard</h1>
+            <ul class="breadcrumb">
+              <li>
+                <a href="#">Dashboard</a>
+              </li>
+              <li><i class="bx bx-chevron-right"></i></li>
+              <li>
+                <a class="active" href="#">Home</a>
+              </li>
+            </ul>
+          </div>
+       
+        </div>
+
+        <ul class="box-info">
+          <li>
+            <i class="bx bxs-calendar-check"></i>
+            <span class="text">
+              <h3>1020</h3>
+              <p class="colorGreen">Nuevas Ordenes</p>
+            </span>
+          </li>
+          <li>
+            <i class="bx bxs-group"></i>
+            <span class="text">
+              <h3>2834</h3>
+              <p class="colorRed">Entregados</p>
+            </span>
+          </li>
+          <li>
+            <i class="bx bxs-dollar-circle"></i>
+            <span class="text">
+              <h3>$2543</h3>
+              <p class="colorBlue">Total de Entregas</p>
+            </span>
+          </li>
+        </ul>
+
+        <div class="table-data">
+          <div class="order">
+            <div class="head">
+              <h3>Personas Empresa</h3>
+              <i class="bx bx-search"></i>
+              <i class="bx bx-filter"></i>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Usuarios</th>
+                  <th>Fecha Orden</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <img src="/static/img/perfil.png" />
+                    <p>Luis Fernando</p>
+                  </td>
+                  <td>01-10-2021</td>
+                  <td><span class="status pending">Pendiente</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="/static/img/perfil.png" />
+                    <p>Luis Fernando</p>
+                  </td>
+                  <td>01-10-2021</td>
+                  <td><span class="status process">En proceso</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="/static/img/perfil.png" />
+                    <p>Luis Fernando</p>
+                  </td>
+                  <td>01-10-2021</td>
+                  <td><span class="status pending">Pendiente</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="/static/img/perfil.png" />
+                    <p>Luis Fernando</p>
+                  </td>
+                  <td>01-10-2021</td>
+                  <td><span class="status completed">Completado</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="todo">
+            <div class="head">
+              <h3>Todos</h3>
+              <i class="bx bx-plus"></i>
+              <i class="bx bx-filter"></i>
+            </div>
+            <canvas id="barChart" class="rad-chart"></canvas>
+          </div>
+        </div>
+      </main>
+    </section>
+    {%include '/components/footer.html' %}
+  </body>
+</html>
