@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="/static/css/loginstyle.css" />
+    <script src="/static/lib/jQuery3.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/static/lib/boxicons.min.css" />
+    <script src="/static/lib/sweetalert2.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="forms-container">
+        <div class="registrarse">
+          <form
+            action="iniciarsesion"
+            method="POST"
+            id="frm_login"
+            class="sign-in-form"
+          >
+            <div class="contenedorLogo">
+              <img class="animacion-image" src="/static/img/tuerca.png" />
+              <div class="logoEmpresa">
+                <div>
+                  <span>Ferreteria Godoy</span>
+                  <p>&#9733; Nosotros se la forjamos &#9733;</p>
+                </div>
+              </div>
+            </div>
+            <!-- correo -->
+            <div class="input-field">
+              <div class="input-text">
+                <i class="bx bxs-user-account"> </i>
+                <input
+                  type="text"
+                  id="txtCorreoUsuario"
+                  name="txtCorreoUsuario"
+                  placeholder="Correo electrónico"
+                />
+              </div>
+              <span style="font-size: 14px">@gmail.com</span>
+            </div>
+            <!-- Contraseña -->
+            <div class="input-field">
+              <div class="input-text">
+                <i class="bx bx-key"> </i>
+                <input
+                  type="password"
+                  id="txtPassword"
+                  name="txtPassword"
+                  autocomplete="on"
+                  placeholder="Contraseña"
+                />
+              </div>
+              <span class="hide" id="eye-hide">
+                <i class="bx bxs-hide"></i>
+              </span>
+              <span class="show" id="eye-show">
+                <i class="bx bxs-show"></i>
+              </span>
+            </div>
+            <button type="submit" id="accion" class="btn">Ingresar</button>
+            <br />
+            <div class="footerform">
+              <h5 style="font-weight: 100">
+                No tienes una cuenta?
+                <a href="/crearcuenta" style="font-weight: 500">Crear cuenta</a>
+              </h5>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- PANEL LADO IZQUIERDO   -->
+      <div class="panels-container">
+        <div class="panel left-panel">
+          <div class="content">
+            <h3>BIENVENIDO</h3>
+            <p id="txt_frase" style="font-style: italic; font-size: 1.2rem"></p>
+          </div>
+
+          <div class="img-box">
+            <!-- <img src="img/luiscv1.png" alt="" /> -->
+            <img src="/static/img/login.svg" class="image" alt="" />
+          </div>
+          <div class="liquid-shape">
+            <svg
+              viewBox="0 0 500 500"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              width="100%"
+              id="blobSvg"
+            >
+              <path fill="#e30d58">
+                <animate
+                  attributeName="d"
+                  dur="10000ms"
+                  repeatCount="indefinite"
+                  values="M394.5,349Q364,448,257.5,434.5Q151,421,86,335.5Q21,250,76,146.5Q131,43,250,43Q369,43,397,146.5Q425,250,394.5,349Z;
+                  M388.5,338Q352,426,240,444Q128,462,68,356Q8,250,87.5,178.5Q167,107,246.5,112.5Q326,118,375.5,184Q425,250,388.5,338Z;
+                  M379,329Q341,408,257,395.5Q173,383,114.5,316.5Q56,250,100,158Q144,66,255,57.5Q366,49,391.5,149.5Q417,250,379,329Z;
+                  M428,356Q373,462,263,440.5Q153,419,111.5,334.5Q70,250,110,163.5Q150,77,242,91Q334,105,408.5,177.5Q483,250,428,356Z;
+                  M427,344Q358,438,252.5,433Q147,428,95,339Q43,250,105,177.5Q167,105,266.5,76.5Q366,48,431,149Q496,250,427,344Z;
+                  M394.5,349Q364,448,257.5,434.5Q151,421,86,335.5Q21,250,76,146.5Q131,43,250,43Q369,43,397,146.5Q425,250,394.5,349Z;"
+                ></animate>
+              </path>
+            </svg>
+          </div>
+
+          <div class="liquid-shape doce">
+            <svg
+              viewBox="0 0 500 500"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              width="100%"
+              id="blobSvg"
+            >
+              <path fill="#e30d58">
+                <animate
+                  attributeName="d"
+                  dur="10000ms"
+                  repeatCount="indefinite"
+                  values="M394.5,349Q364,448,257.5,434.5Q151,421,86,335.5Q21,250,76,146.5Q131,43,250,43Q369,43,397,146.5Q425,250,394.5,349Z;
+                  M388.5,338Q352,426,240,444Q128,462,68,356Q8,250,87.5,178.5Q167,107,246.5,112.5Q326,118,375.5,184Q425,250,388.5,338Z;
+                  M379,329Q341,408,257,395.5Q173,383,114.5,316.5Q56,250,100,158Q144,66,255,57.5Q366,49,391.5,149.5Q417,250,379,329Z;
+                  M428,356Q373,462,263,440.5Q153,419,111.5,334.5Q70,250,110,163.5Q150,77,242,91Q334,105,408.5,177.5Q483,250,428,356Z;
+                  M427,344Q358,438,252.5,433Q147,428,95,339Q43,250,105,177.5Q167,105,266.5,76.5Q366,48,431,149Q496,250,427,344Z;
+                  M394.5,349Q364,448,257.5,434.5Q151,421,86,335.5Q21,250,76,146.5Q131,43,250,43Q369,43,397,146.5Q425,250,394.5,349Z;"
+                ></animate>
+              </path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/static/js/loginmain.js"></script>
+  </body>
+</html>

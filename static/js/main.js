@@ -20,7 +20,7 @@ opcion.forEach(item => {
 });
 
 let getul = localStorage.getItem("ula");
-if (getul.length != 0) {
+if (getul && getul.length > 0) {
   let variable = "#" + getul;
   let casa = document.querySelectorAll(variable);
   casa.forEach(function (item) {
