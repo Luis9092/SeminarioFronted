@@ -8,6 +8,7 @@ const eye_hide = document.querySelector("#eye-hide");
 let Ifacebook = "",
   Itwitter = "",
   Iinstragram = "";
+
 eye_show.onclick = () => {
   if (txtPassword.type === "password") {
     txtPassword.type = "text";
@@ -45,6 +46,7 @@ function EnviarDatos() {
   submitController();
 }
 
+
 function ValidacionLogin(icono, color, mensaje) {
   const Toast = Swal.mixin({
     toast: true,
@@ -69,9 +71,12 @@ function ValidacionLogin(icono, color, mensaje) {
 }
 txtCorreoUsuario.addEventListener("input", (e) => validatefieldWhite(e));
 txtPassword.addEventListener("input", (e) => validatefieldWhite(e));
+txtCorreoUsuario.addEventListener("change", (e) =>
+  validateEmailB(e)
+);
+
 
 const validatefieldWhite = (e) => {
-  const field = e.target;
   const fieldValue = e.target.value;
   const field_id = e.target.id;
   if (fieldValue.trim().length === 0) {
@@ -81,12 +86,30 @@ const validatefieldWhite = (e) => {
   }
 };
 
+const validateEmailB = (e) => {
+  const fieldValue = e.target.value;
+  const field_id = e.target.id;
+  const regex = new RegExp("^(.*)@(gmail|googlemail|(.*.)google).com");
+
+  if (fieldValue.trim().length === 0) {
+    ValidacionLogin("warning", "#FF0000", "Por favor llenar el formulario*");
+    verificar_input[field_id] = true;
+
+  } else if (!regex.test(fieldValue)) {
+    ValidacionLogin("warning", "#FF0000", "Tiene que ser una direccion de correo valida*");
+    verificar_input[field_id] = true;
+  } else {
+    verificar_input[field_id] = false;
+  }
+};
+
+
 submitController = () => {
   if (verificar_input.txtCorreoUsuario || verificar_input.txtPassword) {
     ValidacionLogin("warning", "#FF0000", "Por favor llenar los campos*");
   } else {
     Swal.fire({
-      title: '<h5 style="color:#08bb40; " >Confirmando su identidad...</h5>',
+      title: '<h5 style="color:#ff0044; " >Confirmando su identidad...</h5>',
       html: "Enviando datos en <b></b>.",
       timer: 2000,
       timerProgressBar: true,
@@ -101,7 +124,6 @@ submitController = () => {
         clearInterval(timerInterval);
       },
     }).then((result) => {
-      /* Read more about handling dismissals below */
       if (result.dismiss === Swal.DismissReason.timer) {
         EnviarData();
       }
@@ -137,7 +159,7 @@ function EnviarData() {
         Toast.fire({
           icon: "warning",
           title:
-            "<h5 style='color:#8b0000; font-size:15px;'>Vaya, ha ocurrido un error</h5>",
+            "<h5 style='color:#ff0044; font-size:15px;'>Contrasenia o usuario incorrectos.</h5>",
         });
       } else {
         const Toast = Swal.mixin({
@@ -156,7 +178,7 @@ function EnviarData() {
         Toast.fire({
           icon: "success",
           title:
-            "<h5 style='color:#006400; font-size:15px;' >Identidad confirmada🦆🦆</h5>",
+            "<h5 style=' font-size:15px;' >Identidad confirmada</h5>",
         }).then(function () {
           window.location.replace("/dashboard");
           // alert("Ha entrado");
@@ -168,3 +190,5 @@ function EnviarData() {
     },
   });
 }
+
+

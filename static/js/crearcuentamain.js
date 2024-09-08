@@ -37,7 +37,7 @@ document.querySelector("#accion").addEventListener("click", (e) => {
 window.addEventListener("load", () => {
   let txtfrase = document.querySelector("#txt_frase");
   txtfrase.innerHTML =
-    "Muchos piensan en cambiar el mundo, pero casi nadie piensa en cambiarse a sí mismo. ";
+    "He aprendido que la verdadera lucha no es contra los demás, sino contra uno mismo. Las cosas deben continuar, incluso en la derrota; nada se obtiene sin esfuerzo. Tienes que tener disciplina y paciencia";
 });
 
 let timerInterval;
@@ -69,9 +69,9 @@ function ValidacionLogin(icono, color, mensaje) {
 }
 txtCorreoUsuario.addEventListener("input", (e) => validatefieldWhite(e));
 txtPassword.addEventListener("input", (e) => validatefieldWhite(e));
+txtCorreoUsuario.addEventListener("change", (e) => validateEmailB(e));
 
 const validatefieldWhite = (e) => {
-  const field = e.target;
   const fieldValue = e.target.value;
   const field_id = e.target.id;
   if (fieldValue.trim().length === 0) {
@@ -81,12 +81,29 @@ const validatefieldWhite = (e) => {
   }
 };
 
+const validateEmailB = (e) => {
+  const fieldValue = e.target.value;
+  const field_id = e.target.id;
+  const regex = new RegExp("^(.*)@(gmail|googlemail|(.*.)google).com");
+
+  if (fieldValue.trim().length === 0) {
+    verificar_input[field_id] = true;
+    ValidacionLogin("warning", "#FF0000", "Por favor llenar el formulario*");
+  } else if (!regex.test(fieldValue)) {
+    verificar_input[field_id] = true;
+    ValidacionLogin("warning", "#FF0000", "Tiene que ser una direccion de correo valida*");
+  } else {
+    verificar_input[field_id] = false;
+  }
+};
+
+
 submitController = () => {
   if (verificar_input.txtCorreoUsuario || verificar_input.txtPassword) {
-    ValidacionLogin("warning", "#FF0000", "Por favor llenar los campos*");
+    ValidacionLogin("warning", "#FF0000", "Por favor llenar los campos correctamente*");
   } else {
     Swal.fire({
-      title: '<h5 style="color:#08bb40; " >Confirmando su identidad...</h5>',
+      title: '<h5 style="color:#08bb40; " >Creando Cuenta...</h5>',
       html: "Enviando datos en <b></b>.",
       timer: 2000,
       timerProgressBar: true,
@@ -137,7 +154,7 @@ function EnviarData() {
         Toast.fire({
           icon: "warning",
           title:
-            "<h5 style='color:#8b0000; font-size:15px;'>Vaya, ha ocurrido un error</h5>",
+            "<h5 style='color:#ff0044; font-size:15px;'>Formulario Llenado incorrectamente</h5>",
         });
       } else {
         const Toast = Swal.mixin({
@@ -156,7 +173,7 @@ function EnviarData() {
         Toast.fire({
           icon: "success",
           title:
-            "<h5 style='color:#006400; font-size:15px;' >Usuario Creado Correctamente</h5>",
+            "<h5 style='font-size:15px;' >Usuario Creado Correctamente</h5>",
         }).then(function () {
           window.location.replace("/");
           // alert("Ha entrado");

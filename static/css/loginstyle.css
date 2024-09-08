@@ -6,8 +6,10 @@
   box-sizing: border-box;
 }
 
+ 
 a {
-  list-style: none;
+  text-decoration: none; /* Quita el subrayado */
+  color: inherit; /* Hereda el color del elemento padre */
 }
 
 :root {
@@ -260,6 +262,7 @@ input {
   margin: 0 auto;
   margin: 10px 0 10px 0;
   color: white;
+  text-transform: uppercase;
 }
 
 .btn:after {
@@ -310,7 +313,7 @@ input {
 
 .panel .content {
   color: var(--black-color);
-  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.664);
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.664);
   transition: transform 0.9s ease-in-out;
   transition-delay: 0.6s;
   transform-style: preserve-3d;
@@ -323,7 +326,7 @@ input {
 
 .panel p {
   font-size: 15px;
-  padding: 0.7rem 0;
+  padding: 0.8rem 0;
 }
 
 .hide {
