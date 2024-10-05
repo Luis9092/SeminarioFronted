@@ -46,6 +46,13 @@ def productos():
     
     return render_template("productos.html", tableProductos=[], per=per)
 
+@app.route("/adminuser")
+def admin_users():
+    per = session.get("perfil")
+    if "perfil" not in session or not session["perfil"]:
+        return redirect(url_for("root"))
+    return render_template("adminuser.html", per=per)
+
 
 # rutasOperaciones
 @app.route("/crearUsuario", methods=["POST"])

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    {% include '/components/header.html' %}
+    <title>Administrar Usuarios</title>
+</head>
+<body>
+    {% include '/components/menu.html' %}
+
+    <section id="content">
+        {% include '/components/perfil.html' %}
+
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Administración de Usuarios</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="#">Generales</a>
+                        </li>
+                        <li><i class="bx bx-chevron-right"></i></li>
+                        <li>
+                            <a class="active" href="#">Administración de Usuarios</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                        <h3>Usuarios Registrados</h3>
+                        <i class="bx bx-search"></i>
+                        <i class="bx bx-filter"></i>
+                    </div>
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Usuario ID</th>
+                                <th>Nombre de Usuario</th>
+                                <th>Fecha de Creacion</th>
+                                <th>Rol</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usuarios-list">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </section>
+
+    {% include '/components/footer.html' %}
+
+    <script>
+        async function obtenerUsuarios() {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/usuarios');
+                if (!response.ok) {
+                    throw new Error(`Error ${response.status}: ${response.statusText}`);
+                }
+
+                const usuarios = await response.json();
+                const usuariosList = document.getElementById('usuarios-list');
+
+                usuariosList.innerHTML = '';
+
+                usuarios.forEach(usuario => {
+                    const row = `
+                        <tr data-id="${usuario.UsuarioID}">
+                            <td>${usuario.UsuarioID}</td>
+                            <td>${usuario.nombres}</td>
+                            <td>${usuario.fechacreacion}</td>
+                            <td>${usuario.rol}</td>
+                            <td>
+                                <button class="btn btn-success" onclick="mostrarListaRoles(${usuario.UsuarioID})">Editar Rol</button>
+                                <button class="btn btn-danger" onclick="eliminarUsuario(${usuario.UsuarioID})">Eliminar</button>
+                            </td>
+                        </tr>
+                    `;
+                    usuariosList.innerHTML += row;
+                });
+            } catch (error) {
+                console.error('Error:', error);
+                alert(`Hubo un problema al cargar los usuarios: ${error.message}`);
+            }
+        }
+
+        async function obtenerRoles() {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/roles');
+                if (!response.ok) {
+                    throw new Error(`Error ${response.status}: ${response.statusText}`);
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('Error:', error);
+                alert(`Hubo un problema al cargar los roles: ${error.message}`);
+                return [];
+            }
+        }
+
+        window.onload = async () => {
+            await obtenerUsuarios();
+        };
+
+        async function mostrarListaRoles(usuarioID) {
+            const roles = await obtenerRoles();
+            const select = document.getElementById('selectRol');
+
+            // Limpiar las opciones existentes
+            select.innerHTML = '';
+
+            roles.forEach(rol => {
+                const option = document.createElement('option');
+                option.value = rol.nombre; // Usa rol.nombre como valor
+                option.textContent = rol.nombre; // Muestra el nombre
+                select.appendChild(option);
+            });
+
+            // Mostrar el modal
+            $('#modalRol').modal('show');
+
+            // Configurar el evento de clic en el botón de confirmar
+            document.getElementById('confirmarRolBtn').onclick = async () => {
+                const nuevoRol = select.value; // Esto ahora es el nombre del rol
+                await editarUsuario(usuarioID, nuevoRol);
+                $('#modalRol').modal('hide'); // Cerrar el modal
+            };
+        }
+
+        async function editarUsuario(usuarioID, nuevoRol) {
+          if (nuevoRol) {
+              try {
+                  const response = await fetch(`http://127.0.0.1:8000/usuarios/${usuarioID}/rol`, {
+                      method: 'PUT',
+                      headers: {
+                          'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({ nuevo_rol: nuevoRol }), // Asegúrate de que este cuerpo es correcto
+                  });
+      
+                  if (!response.ok) {
+                      const errorText = await response.text(); // Obtener el texto de error
+                      throw new Error(`Error ${response.status}: ${errorText}`);
+                  }
+      
+                  alert("Rol actualizado con éxito.");
+                  obtenerUsuarios();  // Recargar la lista de usuarios
+              } catch (error) {
+                  console.error('Error:', error);
+                  alert(`Hubo un problema al actualizar el rol: ${error.message}`);
+              }
+          }
+      }
+
+        async function eliminarUsuario(usuarioID) {
+            if (confirm("¿Está seguro que desea eliminar este usuario?")) {
+                try {
+                    const response = await fetch(`http://127.0.0.1:8000/usuarios/${usuarioID}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Error ${response.status}: ${response.statusText}`);
+                    }
+
+                    alert("Usuario eliminado con éxito.");
+                    obtenerUsuarios(); // Recargar la lista de usuarios
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert(`Hubo un problema al eliminar el usuario: ${error.message}`);
+                }
+            }
+        }
+    </script>
+
+    <!-- Scripts de Bootstrap y jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalRol" tabindex="-1" role="dialog" aria-labelledby="modalRolLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalRolLabel">Seleccionar Nuevo Rol</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <select id="selectRol" class="form-control"></select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="confirmarRolBtn">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
