@@ -1,0 +1,71 @@
+<dialog id="modalProductos">
+  <div class="container">
+    <div class="info-container" id="InfoCont">
+      <!-- <div class="container-form"> -->
+      <div id="btn_cancelarProducto" class="btn_cancelar" mut>
+        <i class="bx bx-x"></i>
+      </div>
+      <br />
+
+      <div class="container">
+        <h2>Formulario Productos</h2>
+        <form
+          method="POST"
+          action="/agregarProducto"
+          id="formProducto"
+          enctype="multipart/form-data"
+        >
+          <div class="form-group">
+            <label for="nombre">Nombre Producto:</label>
+            <input
+              type="text"
+              id="nombreproducto"
+              name="nombreproducto"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Imagen</label>
+            <input
+              type="file"
+              id="imagenProducto"
+              name="imagenProducto"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="telefono">Precio</label>
+            <input type="number" min="1" step="0.01"" id="txtprecio"
+            name="txtprecio" required />
+          </div>
+          <div class="form-group">
+            <label for="direccion">Proveedor</label>
+            <select name="txtProveedor" id="txtProveedor" required>
+       
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="direccion">Categoria</label>
+            <select name="txtcategoria" id="txtcategoria" required>
+              
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="mensaje">Descripcion:</label>
+            <textarea
+              id="txtdescripcion"
+              name="txtdescripcion"
+              rows="4"
+              required
+            ></textarea>
+          </div>
+          <div class="form-groupbtn">
+            <button type="submit" class="btn" id="btnenviardProducto">
+              Enviar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</dialog>
