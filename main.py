@@ -187,6 +187,43 @@ def eliminarProveedor(proveedor_id):
     else:
         return json.dumps({"mensaje": "Error al eliminar el proveedor.", "estado": 0})
 
+@app.route("/ventas")
+def ventas():
+    per = session.get("perfil")
+    if "perfil" not in session or not session["perfil"]:
+        return redirect(url_for("root"))
+
+    url = "http://127.0.0.1:8000/obtenerVentas"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        tableVentas = response.json()
+        return render_template("ventas.html", tableVentas=tableVentas, per=per)
+    
+    return render_template("ventas.html", tableVentas=[], per=per)
+
+@app.route("/agregarVenta", methods=["POST"])
+def agregarVenta():
+    data = request.get_json()
+
+    url = "http://127.0.0.1:8000/crearVenta"
+    response = requests.post(url, json=data)
+
+    if response.status_code == 200:
+        return json.dumps({"mensaje": "Venta agregada correctamente!", "estado": 1})
+    else:
+        return json.dumps({"mensaje": "Error al agregar la venta.", "estado": 0})
+
+@app.route("/eliminarVenta/<int:venta_id>", methods=["POST"])
+def eliminarVenta(venta_id):
+    url = f"http://127.0.0.1:8000/eliminarVenta/{venta_id}"
+
+    response = requests.delete(url)
+
+    if response.status_code == 200:
+        return json.dumps({"mensaje": f"Venta {venta_id} eliminada correctamente", "estado": 1})
+    else:
+        return json.dumps({"mensaje": "Error al eliminar la venta.", "estado": 0})
 
 @app.route("/salir")
 def salir():

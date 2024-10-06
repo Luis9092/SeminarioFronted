@@ -1,0 +1,83 @@
+/* ventas.css */
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+header, .form-section, .table-section {
+    margin: 20px;
+}
+
+.btn-agregar {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-agregar:hover {
+    background-color: #45a049;
+}
+
+#modalVentas {
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 400px;
+    max-width: 100%;
+    margin: auto;
+}
+
+#formVenta label {
+    display: block;
+    margin-top: 10px;
+}
+
+#formVenta input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+.btn-submit, .btn-cancelar {
+    padding: 10px 15px;
+    border: none;
+    margin-top: 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-submit {
+    background-color: #008CBA;
+    color: white;
+}
+
+.btn-cancelar {
+    background-color: #f44336;
+    color: white;
+}
+
+.table-section table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-section th, .table-section td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.delete-btn, .btnVerDetalle {
+    background-color: #f44336;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btnVerDetalle {
+    background-color: #008CBA;
+}
