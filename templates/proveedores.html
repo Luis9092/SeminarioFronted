@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Proveedores</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/proveedores.css') }}"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- SweetAlert para alertas -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"
+    />
+    <!-- DataTable CSS -->
+  </head>
+  <body>
+    <header>
+      <h1>Gestión de Proveedores</h1>
+    </header>
+
+    <!-- Botón para abrir el modal -->
+    <section class="form-section">
+      <button id="btnAgregarProveedor" class="btn-agregar">
+        Agregar Proveedor
+      </button>
+    </section>
+
+    <!-- Modal de Proveedores -->
+    <dialog id="modalProveedores">
+      <h2>Agregar Proveedor</h2>
+      <form id="formProveedor" method="POST" action="/agregarProveedor">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required />
+
+        <label for="telefono">Teléfono:</label>
+        <input type="text" id="telefono" name="telefono" required />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+
+        <button type="button" id="btnenviarProveedor" class="btn-submit">
+          Agregar Proveedor
+        </button>
+        <button type="button" id="btn_cancelarProveedor" class="btn-cancelar">
+          Cancelar
+        </button>
+      </form>
+    </dialog>
+
+    <!-- Tabla de Proveedores -->
+    <section class="table-section">
+      <h2>Lista de Proveedores</h2>
+      <table id="tableProveedores" class="display">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+            <th>Email</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for proveedor in tableProveedores %}
+          <tr>
+            <td>{{ proveedor.id }}</td>
+            <td>{{ proveedor.nombre }}</td>
+            <td>{{ proveedor.telefono }}</td>
+            <td>{{ proveedor.email }}</td>
+            <td>
+              <form
+                method="POST"
+                action="{{ url_for('eliminarProveedor', proveedor_id=proveedor.id) }}"
+              >
+                <button type="submit" class="delete-btn">Eliminar</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Incluir jQuery y DataTable -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="{{ url_for('static', filename='js/proveedores.js') }}"></script>
+    <!-- Archivo JS -->
+  </body>
+</html>
