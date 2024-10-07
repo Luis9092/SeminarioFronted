@@ -1,16 +1,32 @@
 const btnAgregarProducto = document.querySelector("#btnAgregarProductos");
 const modalProductos = document.querySelector("#modalProductos");
 const btn_cancelarProducto = document.querySelector("#btn_cancelarProducto");
-const imagenProducto = document.querySelector("#imagenProducto");
 const btnenviardProducto = document.querySelector("#btnenviardProducto");
+
+
+
+// INPUTS
+const nombreproducto = document.querySelector("#nombreproducto");
+const imagenProducto = document.querySelector("#imagenProducto");
+const txtprecio = document.querySelector("#txtprecio");
+const txtProveedor = document.querySelector("#txtProveedor");
+const txtcategoria = document.querySelector("#txtcategoria");
+const txtdescripcion = document.querySelector("#txtdescripcion");
+const txtfecha = document.querySelector("#txtfecha");
+const verImagen = document.querySelector("#verImagen");
+const hideFecha = document.querySelector(".hidefecha");
+const txtexistencia = document.querySelector("#txtexistencia");
+
+
 if (btnAgregarProducto) {
-    btnAgregarProducto.addEventListener("click", () => {
+    btnAgregarProducto.addEventListener("click", (e) => {
+        limpiarForm();
         modalProductos.showModal();
     })
 }
 
 if (btn_cancelarProducto) {
-    btn_cancelarProducto.addEventListener("click", () => {
+    btn_cancelarProducto.addEventListener("click", (e) => {
         modalProductos.close();
 
 
@@ -49,12 +65,13 @@ if (inputarchivoFoto) {
     });
 }
 
-
-btnenviardProducto.addEventListener("click", () => {
-    if (estadoProductoForm == 1) {
-        EnviarformProducto();
-    }
-});
+if (btnenviardProducto) {
+    btnenviardProducto.addEventListener("click", () => {
+        if (estadoProductoForm == 1) {
+            EnviarformProducto();
+        }
+    });
+}
 
 let formProducto = $("#formProducto");
 
@@ -73,7 +90,7 @@ function EnviarformProducto() {
                 const respuesta = JSON.parse(response);
                 console.log(respuesta.estado);
                 modalProductos.close();
-                
+
                 if (respuesta.estado == 0) {
                     Swal.fire({
                         title: "Error",
@@ -121,12 +138,56 @@ function alertModal(color, mensaje, icon) {
     });
 }
 
-// $(document).ready(function () {
-//     $("#tableAyuda").DataTable({
-//       language: {
-//         url: "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json",
-//       },
-//       scrollY: true,
-//       scrollX: true,
-//     });
-//   })
+$(document).ready(function () {
+    $("#tableProductos").DataTable({
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json",
+        },
+        scrollY: true,
+        scrollX: true,
+    });
+})
+
+
+
+$("#tableProductos").on("click", "tr td", function (evt) {
+    let id, descripcion, idProveedor, idcategoria,
+        nombre,
+        precio,
+        cantidad,
+        precioVenta,
+        imagen,
+        fechaIngreso;
+
+    target = $(event.target);
+    id = target.parent("tr").find("td").eq(0).html();
+    descripcion = target.parent("tr").find("td").eq(1).html();
+    idProveedor = target.parent("tr").find("td").eq(2).html();
+    idcategoria = target.parent("tr").find("td").eq(3).html();
+
+    nombre = target.parent("tr").find("td").eq(5).html();
+    precio = target.parent("tr").find("td").eq(6).html();
+    cantidad = target.parent("tr").find("td").eq(7).html();
+    precioVenta = target.parent("tr").find("td").eq(8).html();
+    fechaIngreso = target.parent("tr").find("td").eq(10).html();
+    imagen = target.parent("tr").find("td").eq(11).html();
+
+    nombreproducto.value = nombre;
+    hideFecha.style.display = "block";
+    txtprecio.value = precio; txtProveedor.value = idProveedor; txtcategoria.value = idcategoria; txtdescripcion.value = descripcion;
+    txtfecha.value = fechaIngreso;
+    verImagen.src = imagen;
+    txtexistencia.value = cantidad;
+    modalProductos.showModal();
+});
+
+function limpiarForm() {
+    nombreproducto.value = "";
+    hideFecha.style.display = "none";
+    txtprecio.value = 0;
+    txtProveedor.value = 1;
+    txtcategoria.value = 1;
+    txtdescripcion.value = "";
+    txtexistencia.value = 0;
+    verImagen.src = "/static/img/granada.png";
+}

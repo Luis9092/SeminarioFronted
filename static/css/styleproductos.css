@@ -1,5 +1,5 @@
-.container {
-  max-width: 600px;
+.containerProductoform {
+  width: 60%;
   margin: auto;
   background: var(--grey);
   padding: 20px;
@@ -7,11 +7,37 @@
   box-shadow: var(--color-shadow) 0px 3px 8px;
 }
 
+.formImagen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.formImagen img {
+  display: flex;
+  flex-direction: row;
+  justify-self: center;
+  align-items: center;
+  border-radius: 6px;
+  width: 30%;
+}
+
+.containerProductoform .row2 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+}
+
 h2 {
   text-align: center;
   color: var(--dark);
+  margin: 0.5rem 0;
 }
 .form-group {
+  width: 100%;
   margin-bottom: 15px;
 }
 .form-group label {
@@ -78,13 +104,18 @@ input:focus-visible {
   padding: 14px;
   line-height: 12px;
   border-radius: 10px;
-  margin-top: -10px;
+  margin-top: -28px;
   border: none;
   font-weight: 600;
-  left: 96%;
+  left: calc(100% - 24px);
   cursor: pointer;
   box-sizing: border-box;
   color: var(--dark);
+}
+.btn_cancelar i {
+  padding: 4px;
+  background-color: red;
+  border-radius: 4px;
 }
 
 input[type="file"] {
@@ -143,10 +174,9 @@ input[type="file"]::file-selector-button:hover {
   justify-content: center;
   align-items: center;
   box-shadow: var(--color-shadow) 0px 3px 8px;
-
 }
 
-.tablePrincipal .header{
+.tablePrincipal .header {
   margin: 1rem;
   color: var(--dark);
 }
@@ -154,15 +184,15 @@ table {
   width: 100%;
   border-collapse: collapse;
   background-color: var(--grey);
-  border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-th, td {
+th,
+td {
   padding: 12px 16px;
   text-align: left;
-  border-bottom: 1px solid var(--grey);
+  /* border-bottom: 1px solid var(--grey); */
 }
 
 th {
@@ -173,7 +203,7 @@ th {
 }
 
 td {
-  background-color:var(--grey);
+  background-color: var(--grey);
   color: var(--dark);
 }
 
@@ -209,4 +239,17 @@ tbody tr:hover {
   width: 100%;
   height: auto;
   display: block;
+}
+
+@media (max-width: 600px) {
+  .containerProductoform {
+    width: 100%;
+
+    margin: 0;
+  }
+
+  #modalProductos {
+    width: 100%;
+    margin: 0;
+  }
 }

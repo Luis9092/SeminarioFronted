@@ -43,8 +43,9 @@ def productos():
     if response.status_code == 200:
         tableProductos = response.json()
         return render_template("productos.html", tableProductos=tableProductos, per=per)
-    
+
     return render_template("productos.html", tableProductos=[], per=per)
+
 
 @app.route("/adminuser")
 def admin_users():
@@ -136,6 +137,7 @@ def AgregarProducto():
 
     return json.dumps(respuesta)
 
+
 # Ver Proveedores
 @app.route("/proveedores")
 def proveedores():
@@ -148,9 +150,12 @@ def proveedores():
 
     if response.status_code == 200:
         tableProveedores = response.json()
-        return render_template("proveedores.html", tableProveedores=tableProveedores, per=per)
-    
+        return render_template(
+            "proveedores.html", tableProveedores=tableProveedores, per=per
+        )
+
     return render_template("proveedores.html", tableProveedores=[], per=per)
+
 
 # Agregar Proveedor
 @app.route("/agregarProveedor", methods=["POST"])
@@ -160,11 +165,7 @@ def agregarProveedor():
     email = request.form["email"]
 
     url = "http://127.0.0.1:8000/crearProveedor"
-    data = {
-        "nombre": nombre,
-        "telefono": telefono,
-        "email": email
-    }
+    data = {"nombre": nombre, "telefono": telefono, "email": email}
 
     response = requests.post(url, json=data)
 
@@ -175,6 +176,7 @@ def agregarProveedor():
 
     return json.dumps(respuesta)
 
+
 # Eliminar Proveedor
 @app.route("/eliminarProveedor/<int:proveedor_id>", methods=["POST"])
 def eliminarProveedor(proveedor_id):
@@ -183,9 +185,30 @@ def eliminarProveedor(proveedor_id):
     response = requests.delete(url)
 
     if response.status_code == 200:
-        return json.dumps({"mensaje": f"Proveedor {proveedor_id} eliminado correctamente", "estado": 1})
+        return json.dumps(
+            {
+                "mensaje": f"Proveedor {proveedor_id} eliminado correctamente",
+                "estado": 1,
+            }
+        )
     else:
         return json.dumps({"mensaje": "Error al eliminar el proveedor.", "estado": 0})
+
+
+@app.route("/ventas")
+def ventasrender():
+    per = session.get("perfil")
+    if "perfil" not in session or not session["perfil"]:
+        return redirect(url_for("root"))
+    return render_template("ventas.html", per=per)
+
+
+@app.route("/compras")
+def comprasrender():
+    per = session.get("perfil")
+    if "perfil" not in session or not session["perfil"]:
+        return redirect(url_for("root"))
+    return render_template("compras.html", per=per)
 
 
 @app.route("/salir")
