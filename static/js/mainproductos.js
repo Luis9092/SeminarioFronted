@@ -6,7 +6,6 @@ const btnEliminarProducto = document.querySelector("#btnEliminarProducto");
 const btnActualizarProducto = document.querySelector("#btnActualizarProducto");
 
 
-
 // INPUTS
 const nombreproducto = document.querySelector("#nombreproducto");
 const imagenProducto = document.querySelector("#imagenProducto");
@@ -245,4 +244,3 @@ function limpiarForm() {
     btnenviardProducto.style.display = "block";
 
 }
-// AIzaSyB4S1UPAbsPMZtMO4mREngRlY2Dm3xZRsw
