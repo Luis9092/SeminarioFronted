@@ -17,29 +17,80 @@
 
         <main>
             <!-- Botón para abrir el modal -->
-            <section class="form-section">
-                <button id="btnAgregarVenta" class="btn-agregar">Agregar Venta</button>
-            </section>
+            <button id="btnAgregarVenta" class="btn btn-primary">Agregar Venta</button>
 
-            <!-- Modal de Ventas -->
-            <dialog id="modalVentas">
-                <h2>Agregar Venta</h2>
-                <form id="formVenta" method="POST" action="/agregarVenta">
-                    <label for="cliente_id">Cliente ID:</label>
-                    <input type="number" id="cliente_id" name="cliente_id" required>
+            <!-- Modal para agregar venta -->
+<!-- Modal para agregar venta -->
+<!-- Modal para agregar venta -->
+<dialog id="modalVentas" class="modal">
+    <form id="formVenta">
+        <h2>Agregar Venta</h2>
+        
+        <div class="modal-layout">
+            <!-- Columna izquierda: Cliente, Fecha, Total y Carrito -->
+            <div class="modal-col">
+                <label for="cliente_id">Cliente</label>
+                <select id="cliente_id" name="cliente_id" required>
+                    <option value="">Seleccione un cliente</option>
+                    <!-- Opciones dinámicas se agregarán aquí con JavaScript -->
+                </select>
+        
+                <label for="fecha_venta">Fecha de Venta</label>
+                <input type="date" id="fecha_venta" name="fecha_venta" required>
+        
+                <label for="total">Total</label>
+                <input type="number" id="total" name="total" required readonly>
+        
+                <!-- Tabla de carrito de productos agregados -->
+                <h3>Productos Agregados</h3>
+                <table id="detallesVenta" class="table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Subtotal</th>
+                            <th>Acciones</th> <!-- Columna para eliminar productos -->
+                        </tr>
+                    </thead>
+                    <tbody id="carrito-body">
+                        <!-- Detalles agregados se mostrarán aquí -->
+                    </tbody>
+                </table>
+            </div>
+        
+            <!-- Columna derecha: Agregar producto al carrito -->
+            <div class="modal-col">
+                <h3>Agregar Producto</h3>
+        
+                <!-- Campo de búsqueda de productos -->
+                <input type="text" id="buscarProducto" placeholder="Buscar productos..." autocomplete="off">
+        
+                <!-- Contenedor donde se mostrarán los resultados de búsqueda -->
+                <div id="resultados" class="hidden"></div>
+        
+                <label for="cantidad">Cantidad</label>
+                <input type="number" id="cantidad" name="cantidad" required min="1">
+        
+                <label for="precio_unitario">Precio Unitario</label>
+                <input type="number" id="precio_unitario" name="precio_unitario" required readonly>
+        
+                <div id="existenciasSeleccionadas" class="mt-2"></div>
+        
+                <button type="button" id="btnAgregarDetalle" class="btn btn-secondary">Agregar al Carrito</button>
+            </div>
+        </div>
+        
+        <div class="modal-actions">
+            <button type="button" id="btnCancelarVenta" class="btn btn-danger">Cancelar</button>
+            <button type="button" id="btnEnviarVenta" class="btn btn-success">Guardar Venta</button>
+        </div>
+        </form>
+        </dialog>
+        
+    </div>
 
-                    <label for="fecha_venta">Fecha de Venta:</label>
-                    <input type="date" id="fecha_venta" name="fecha_venta" required>
-
-                    <label for="total">Total:</label>
-                    <input type="number" step="0.01" id="total" name="total" required>
-
-                    <!-- Aquí puedes agregar campos para los detalles de la venta -->
-
-                    <button type="button" id="btnEnviarVenta" class="btn-submit">Agregar Venta</button>
-                    <button type="button" id="btnCancelarVenta" class="btn-cancelar">Cancelar</button>
-                </form>
-            </dialog>
+    <script src="ventas.js"></script>
 
             <!-- Tabla de Ventas -->
             <section class="table-section">
