@@ -7,7 +7,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert para alertas -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"> <!-- DataTable CSS -->
     <script src="{{ url_for('static', filename='js/ventas.js') }}"></script>
-
 </head>
 <body>
     {% include '/components/menu.html' %}
@@ -77,6 +76,7 @@
         
                 <div id="existenciasSeleccionadas" class="mt-2"></div>
         
+                <input type="hidden" id="producto-id" name="producto-id">
                 <button type="button" id="btnAgregarDetalle" class="btn btn-secondary">Agregar al Carrito</button>
             </div>
         </div>
