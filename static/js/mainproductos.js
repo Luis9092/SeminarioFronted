@@ -2,7 +2,8 @@ const btnAgregarProducto = document.querySelector("#btnAgregarProductos");
 const modalProductos = document.querySelector("#modalProductos");
 const btn_cancelarProducto = document.querySelector("#btn_cancelarProducto");
 const btnenviardProducto = document.querySelector("#btnenviardProducto");
-
+const btnEliminarProducto = document.querySelector("#btnEliminarProducto");
+const btnActualizarProducto = document.querySelector("#btnActualizarProducto");
 
 
 // INPUTS
@@ -16,6 +17,8 @@ const txtfecha = document.querySelector("#txtfecha");
 const verImagen = document.querySelector("#verImagen");
 const hideFecha = document.querySelector(".hidefecha");
 const txtexistencia = document.querySelector("#txtexistencia");
+const txtid = document.querySelector("#txtid");
+const txtnameAnterior = document.querySelector("#txtnameAnterior");
 
 
 if (btnAgregarProducto) {
@@ -50,7 +53,7 @@ if (inputarchivoFoto) {
                 const fileReader = new FileReader();
 
                 fileReader.onload = function (event) {
-                    // fotoPerfiluser.src = event.target.result;
+                    verImagen.src = event.target.result;
                     estadoProductoForm = 1;
                     btnenviardProducto.disabled = false;
                     alertModal("#00dfdf", "Imagen Agregada correctamente!!", "success",)
@@ -65,30 +68,68 @@ if (inputarchivoFoto) {
     });
 }
 
-if (btnenviardProducto) {
-    btnenviardProducto.addEventListener("click", () => {
-        if (estadoProductoForm == 1) {
-            EnviarformProducto();
+
+let boton = document.getElementsByName("accion");
+
+for (const btn of boton) {
+    btn.addEventListener("click", function (e) {
+        let valor = this.value;
+
+        if (valor == "agregar") {
+            if (estadoProductoForm == 1) {
+                notificarProceso(valor);
+            }
+        } else {
+            notificarProceso(valor);
+        }
+
+    });
+}
+
+// if (btnenviardProducto) {
+//     btnenviardProducto.addEventListener("click", () => {
+
+//     });
+// }
+
+
+
+
+function notificarProceso(valor) {
+    Swal.fire({
+        target: document.querySelector("#modalProductos"),
+        title: `Desea ${valor} el producto?`,
+        text: "¡No podrás revertir esto!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#0080ff",
+        cancelButtonColor: "#D2122E",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: `Si, ${valor}`,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            enviarformProducto(valor);
         }
     });
 }
 
-let formProducto = $("#formProducto");
 
+function enviarformProducto(valor) {
 
-function EnviarformProducto() {
+    let formProducto = $("#formProducto");
+
     formProducto.submit(function (e) {
         e.preventDefault();
 
         $.ajax({
             type: formProducto.attr("method"),
-            url: formProducto.attr("action"),
+            url: formProducto.attr("action") + "/" + valor,
             data: new FormData(this),
             processData: false,
             contentType: false,
             success: function (response) {
                 const respuesta = JSON.parse(response);
-                console.log(respuesta.estado);
+
                 modalProductos.close();
 
                 if (respuesta.estado == 0) {
@@ -98,14 +139,14 @@ function EnviarformProducto() {
                         icon: "error",
                         confirmButtonColor: "#ff004c",
                     }).then(function () {
-                        // window.location.replace("/miperfil");
+
                     });
                 } else {
                     Swal.fire({
                         title: "Excelente!!",
                         text: respuesta.mensaje,
                         icon: "success",
-                        confirmButtonColor: "#008d49",
+                        confirmButtonColor: "#0080ff",
                     }).then(function () {
                         window.location.replace("/productos");
                     });
@@ -116,6 +157,8 @@ function EnviarformProducto() {
             },
         });
     });
+    formProducto.trigger("submit");
+
 }
 
 function alertModal(color, mensaje, icon) {
@@ -178,6 +221,12 @@ $("#tableProductos").on("click", "tr td", function (evt) {
     txtfecha.value = fechaIngreso;
     verImagen.src = imagen;
     txtexistencia.value = cantidad;
+    txtid.value = id;
+    txtnameAnterior.value = imagen;
+    btnEliminarProducto.style.display = "block";
+    btnActualizarProducto.style.display = "block";
+    btnenviardProducto.style.display = "none";
+
     modalProductos.showModal();
 });
 
@@ -189,5 +238,9 @@ function limpiarForm() {
     txtcategoria.value = 1;
     txtdescripcion.value = "";
     txtexistencia.value = 0;
-    verImagen.src = "/static/img/granada.png";
+    verImagen.src = "/static/img/ventasimagen.jpg";
+    btnEliminarProducto.style.display = "none";
+    btnActualizarProducto.style.display = "none";
+    btnenviardProducto.style.display = "block";
+
 }
