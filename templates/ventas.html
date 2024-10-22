@@ -1,129 +1,191 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+  <head>
     {% include '/components/header.html' %}
     <title>Gestión de Ventas</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/ventas.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert para alertas -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"> <!-- DataTable CSS -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/ventas.css') }}"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- SweetAlert para alertas -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"
+    />
+    <!-- DataTable CSS -->
     <script src="{{ url_for('static', filename='js/ventas.js') }}"></script>
-</head>
-<body>
+  </head>
+  <body>
     {% include '/components/menu.html' %}
 
     <section id="content">
-        {% include '/components/perfil.html' %}
+      {% include '/components/perfil.html' %}
 
-        <main>
-            <!-- Botón para abrir el modal -->
-            <button id="btnAgregarVenta" class="btn btn-primary">Agregar Venta</button>
+      <main>
+        <!-- Botón para abrir el modal -->
+        <button id="btnAgregarVenta" class="btn btn-primary">
+          Agregar Venta
+        </button>
 
-            <!-- Modal para agregar venta -->
-<!-- Modal para agregar venta -->
-<!-- Modal para agregar venta -->
-<dialog id="modalVentas" class="modal">
-    <form id="formVenta">
-        <h2>Agregar Venta</h2>
-        
-        <div class="modal-layout">
-            <!-- Columna izquierda: Cliente, Fecha, Total y Carrito -->
-            <div class="modal-col">
+        <!-- Modal para agregar venta -->
+        <!-- Modal para agregar venta -->
+        <!-- Modal para agregar venta -->
+        <dialog id="modalVentas" class="modal">
+          <form id="formVenta">
+            <h2>Agregar Venta</h2>
+
+            <div class="modal-layout">
+              <!-- Columna izquierda: Cliente, Fecha, Total y Carrito -->
+              <div class="modal-col">
                 <label for="cliente_id">Cliente</label>
                 <select id="cliente_id" name="cliente_id" required>
-                    <option value="">Seleccione un cliente</option>
-                    <!-- Opciones dinámicas se agregarán aquí con JavaScript -->
+                  <option value="">Seleccione un cliente</option>
+                  <!-- Opciones dinámicas se agregarán aquí con JavaScript -->
                 </select>
-        
+
                 <label for="fecha_venta">Fecha de Venta</label>
-                <input type="date" id="fecha_venta" name="fecha_venta" required>
-        
+                <input
+                  type="date"
+                  id="fecha_venta"
+                  name="fecha_venta"
+                  required
+                />
+
                 <label for="total">Total</label>
-                <input type="number" id="total" name="total" required readonly>
-        
+                <input
+                  type="number"
+                  id="total"
+                  name="total"
+                  required
+                  readonly
+                />
+
                 <!-- Tabla de carrito de productos agregados -->
                 <h3>Productos Agregados</h3>
                 <table id="detallesVenta" class="table">
-                    <thead>
-                        <tr>
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                            <th>Precio Unitario</th>
-                            <th>Subtotal</th>
-                            <th>Acciones</th> <!-- Columna para eliminar productos -->
-                        </tr>
-                    </thead>
-                    <tbody id="carrito-body">
-                        <!-- Detalles agregados se mostrarán aquí -->
-                    </tbody>
+                  <thead>
+                    <tr>
+                      <th>Producto</th>
+                      <th>Cantidad</th>
+                      <th>Precio Unitario</th>
+                      <th>Subtotal</th>
+                      <th>Acciones</th>
+                      <!-- Columna para eliminar productos -->
+                    </tr>
+                  </thead>
+                  <tbody id="carrito-body">
+                    <!-- Detalles agregados se mostrarán aquí -->
+                  </tbody>
                 </table>
-            </div>
-        
-            <!-- Columna derecha: Agregar producto al carrito -->
-            <div class="modal-col">
+              </div>
+
+              <!-- Columna derecha: Agregar producto al carrito -->
+              <div class="modal-col">
                 <h3>Agregar Producto</h3>
-        
+
                 <!-- Campo de búsqueda de productos -->
-                <input type="text" id="buscarProducto" placeholder="Buscar productos..." autocomplete="off">
-        
+                <input
+                  type="text"
+                  id="buscarProducto"
+                  placeholder="Buscar productos..."
+                  autocomplete="off"
+                />
+
                 <!-- Contenedor donde se mostrarán los resultados de búsqueda -->
                 <div id="resultados" class="hidden"></div>
-        
+
                 <label for="cantidad">Cantidad</label>
-                <input type="number" id="cantidad" name="cantidad" required min="1">
-        
+                <input
+                  type="number"
+                  id="cantidad"
+                  name="cantidad"
+                  required
+                  min="1"
+                />
+
                 <label for="precio_unitario">Precio Unitario</label>
-                <input type="number" id="precio_unitario" name="precio_unitario" required readonly>
-        
-                <div id="existenciasSeleccionadas" class="mt-2"></div>
-        
-                <input type="hidden" id="producto-id" name="producto-id">
-                <button type="button" id="btnAgregarDetalle" class="btn btn-secondary">Agregar al Carrito</button>
+                <input
+                  type="number"
+                  id="precio_unitario"
+                  name="precio_unitario"
+                  required
+                  readonly
+                />
+
+                <div id="existenciasSeleccionadas" class="mt-2">
+                  Existencias Disponibles
+                  <input type="text" id="txtexistencias" disabled />
+                </div>
+
+                <input type="hidden" id="producto-id" name="producto-id" />
+                <button
+                  type="button"
+                  id="btnAgregarDetalle"
+                  class="btn btn-secondary"
+                >
+                  Agregar al Carrito
+                </button>
+              </div>
             </div>
-        </div>
-        
-        <div class="modal-actions">
-            <button type="button" id="btnCancelarVenta" class="btn btn-danger">Cancelar</button>
-            <button type="button" id="btnEnviarVenta" class="btn btn-success">Guardar Venta</button>
-        </div>
-        </form>
+
+            <div class="modal-actions">
+              <button
+                type="button"
+                id="btnCancelarVenta"
+                class="btn btn-danger"
+              >
+                Cancelar
+              </button>
+              <button type="button" id="btnEnviarVenta" class="btn btn-success">
+                Guardar Venta
+              </button>
+            </div>
+          </form>
         </dialog>
-        
-    </div>
 
-    <script src="ventas.js"></script>
+        <script src="ventas.js"></script>
 
-            <!-- Tabla de Ventas -->
-            <section class="table-section">
-                <h2>Lista de Ventas</h2>
-                <table id="tableVentas" class="display">
-                    <thead>
-                        <tr>
-                            <th>Venta ID</th>
-                            <th>Cliente ID</th>
-                            <th>Fecha de Venta</th>
-                            <th>Total</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for venta in tableVentas %}
-                        <tr>
-                            <td>{{ venta.VentaId }}</td>
-                            <td>{{ venta.ClienteID }}</td>
-                            <td>{{ venta.FechaVenta }}</td>
-                            <td>{{ venta.Total }}</td>
-                            <td>
-                                <button class="btnVerDetalle" data-ventaid="{{ venta.VentaId }}">Ver Detalles</button>
-                                <form method="POST" action="{{ url_for('eliminarVenta', venta_id=venta.VentaId) }}">
-                                    <button type="submit" class="delete-btn">Eliminar</button>
-                                </form>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </section>
-        </main>
+        <!-- Tabla de Ventas -->
+        <div class="tablePrincipal">
+          <h2>Lista de Ventas</h2>
+          <table id="tableVentas" class="display">
+            <thead>
+              <tr>
+                <th>Venta ID</th>
+                <th>Cliente ID</th>
+                <th>Fecha de Venta</th>
+                <th>Total</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for venta in tableVentas %}
+              <tr>
+                <td>{{ venta.VentaId }}</td>
+                <td>{{ venta.ClienteID }}</td>
+                <td>{{ venta.FechaVenta }}</td>
+                <td>{{ venta.Total }}</td>
+                <td>
+                  <button
+                    class="btnVerDetalle"
+                    data-ventaid="{{ venta.VentaId }}"
+                  >
+                    Ver Detalles
+                  </button>
+                  <form
+                    method="POST"
+                    action="{{ url_for('eliminarVenta', venta_id=venta.VentaId) }}"
+                  >
+                    <button type="submit" class="delete-btn">Eliminar</button>
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </main>
     </section>
 
     <!-- Incluir scripts -->
@@ -133,5 +195,5 @@
     <!-- Archivo JS personalizado -->
     <script src="{{ url_for('static', filename='js/ventas.js') }}"></script>
     {% include '/components/footer.html' %}
-</body>
+  </body>
 </html>

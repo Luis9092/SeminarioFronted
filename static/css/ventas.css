@@ -2,182 +2,170 @@
 /* styles.css */
 
 /* Estilos globales */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    margin: 0;
-    padding: 20px;
-}
 
-.container {
-    max-width: 900px;
-    margin: auto;
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
+/* .container {
+  max-width: 900px;
+  margin: auto;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+} */
 
-h1, h2, h3 {
-    color: #333;
-}
+/* h1,
+h2,
+h3 {
+  color: #333;
+} */
 
 /* Tabla de ventas */
-.table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
+/* .table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+} */
 
-.table th, .table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+/* .table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
 }
 
 .table th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-}
+  background-color: #f2f2f2;
+  font-weight: bold;
+} */
 
 /* Botones */
 .btn {
-    padding: 10px 15px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 5px;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 5px;
 }
 
 .btn-primary {
-    background-color: #007bff;
-    color: white;
+  background-color: #007bff;
+  color: white;
 }
 
 .btn-secondary {
-    background-color: #6c757d;
-    color: white;
+  background-color: #6c757d;
+  color: white;
 }
 
 .btn-danger {
-    background-color: #dc3545;
-    color: white;
+  background-color: #dc3545;
+  color: white;
 }
 
 .btn-success {
-    background-color: #28a745;
-    color: white;
+  background-color: #28a745;
+  color: white;
 }
 
 /* Modal más grande */
 .modal {
-    border: none;
-    padding: 30px;
-    background-color: white;
-    width: 90%; /* Aumentamos el tamaño del modal al 90% del ancho */
-    max-width: 1200px; /* Aumentamos el ancho máximo a 1200px */
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
+  border: none;
+  padding: 30px;
+  background-color: white;
+  width: 90%; /* Aumentamos el tamaño del modal al 90% del ancho */
+  max-width: 1200px; /* Aumentamos el ancho máximo a 1200px */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
 }
 
 .modal::backdrop {
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
 }
 
 label {
-    display: block;
-    margin-bottom: 8px; /* Espacio entre label y campo */
-    font-weight: bold;
-    color: #333;
+  display: block;
+  margin-bottom: 8px; /* Espacio entre label y campo */
+  font-weight: bold;
+  color: #333;
 }
 
 input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px; /* Espacio entre los campos */
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 16px;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px; /* Espacio entre los campos */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
 }
 
 /* Layout de dos columnas con tabla mejor posicionada */
 .modal-layout {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    align-items: flex-start; /* Para evitar que los elementos se alineen en la parte superior */
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-start; /* Para evitar que los elementos se alineen en la parte superior */
 }
 
 .modal-col {
-    width: 48%; /* Mantenemos el 48% del ancho para las dos columnas */
+  width: 48%; /* Mantenemos el 48% del ancho para las dos columnas */
 }
 
 /* Tabla de detalles con scroll en modal */
 #detallesVenta {
-    margin-top: 20px;
-    border: 1px solid #ddd;
+  margin-top: 20px;
+  border: 1px solid #ddd;
 }
 
-#detallesVenta th, #detallesVenta td {
-    padding: 10px;
-    text-align: left;
+#detallesVenta th,
+#detallesVenta td {
+  padding: 10px;
+  text-align: left;
 }
 
 #detallesVenta th {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 /* Estilo de las acciones del modal */
 .modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 15px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
 }
-
-
 
 /* AL AZAR */
 
 #cliente_id {
-    width: 100%;  /* Ancho completo del contenedor */
-    padding: 10px;  /* Espacio interno para que el texto no quede pegado */
-    font-size: 16px;  /* Tamaño de la fuente para mejorar la legibilidad */
-    border: 1px solid #ccc;  /* Borde de color gris claro */
-    border-radius: 5px;  /* Bordes redondeados */
-    background-color: #f9f9f9;  /* Fondo claro */
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);  /* Sombra interna suave */
-    appearance: none;  /* Eliminar la apariencia predeterminada del navegador */
-    cursor: pointer;  /* Cambia el cursor al pasar sobre el dropdown */
+  width: 100%; /* Ancho completo del contenedor */
+  padding: 10px; /* Espacio interno para que el texto no quede pegado */
+  font-size: 16px; /* Tamaño de la fuente para mejorar la legibilidad */
+  border: 1px solid #ccc; /* Borde de color gris claro */
+  border-radius: 5px; /* Bordes redondeados */
+  background-color: #f9f9f9; /* Fondo claro */
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra interna suave */
+  appearance: none; /* Eliminar la apariencia predeterminada del navegador */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el dropdown */
 }
 
 /* Estilo para cuando el dropdown está enfocado */
 #cliente_id:focus {
-    border-color: #4CAF50;  /* Cambiar el color del borde cuando está enfocado */
-    outline: none;  /* Eliminar el borde azul predeterminado al enfocarse */
+  border-color: #4caf50; /* Cambiar el color del borde cuando está enfocado */
+  outline: none; /* Eliminar el borde azul predeterminado al enfocarse */
 }
 
 /* Estilo para las opciones del dropdown */
 #cliente_id option {
-    padding: 10px;  /* Espacio interno */
-    background-color: #ffffff;  /* Fondo blanco */
-    color: #333;  /* Color del texto */
+  padding: 10px; /* Espacio interno */
+  background-color: #ffffff; /* Fondo blanco */
+  color: #333; /* Color del texto */
 }
 
 /* Opciones cuando pasas el mouse sobre ellas */
 #cliente_id option:hover {
-    background-color: #f1f1f1;  /* Cambiar el color de fondo cuando pasas el mouse */
+  background-color: #f1f1f1; /* Cambiar el color de fondo cuando pasas el mouse */
 }
-
-
-
-
-
-
-
-
