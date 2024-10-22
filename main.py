@@ -249,12 +249,7 @@ def ventas():
     if "perfil" not in session or not session["perfil"]:
         return redirect(url_for("root"))
 
-    url = "http://127.0.0.1:8000/obtenerVentas"
-    response = requests.get(url)
 
-    if response.status_code == 200:
-        tableVentas = response.json()
-        return render_template("ventas.html", tableVentas=tableVentas, per=per)
 
     return render_template("ventas.html", tableVentas=[], per=per)
 
@@ -309,12 +304,12 @@ def agregarProveedor():
     return json.dumps(respuesta)
 
 
-@app.route("/ventas")
-def ventasrender():
-    per = session.get("perfil")
-    if "perfil" not in session or not session["perfil"]:
-        return redirect(url_for("root"))
-    return render_template("ventas.html", per=per)
+# @app.route("/ventas")
+# def ventasrender():
+#     per = session.get("perfil")
+#     if "perfil" not in session or not session["perfil"]:
+#         return redirect(url_for("root"))
+#     return render_template("ventas.html", per=per)
 
 
 @app.route("/compras")
