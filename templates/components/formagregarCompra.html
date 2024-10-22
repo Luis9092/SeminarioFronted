@@ -1,0 +1,130 @@
+<dialog id="modalAgregarProducto">
+  <div class="container">
+    <div class="info-container" id="InfoCont">
+      <br />
+
+      <div class="containerProductoform">
+        <div id="btncerraModalcar" class="btn_cancelar">
+          <i class="bx bx-x"></i>
+        </div>
+        <h2>Desea Agrega el producto?</h2>
+        <form
+          method="POST"
+          action="/productosOperaciones"
+          id="formProducto"
+          enctype="multipart/form-data"
+        >
+          <input type="hidden" name="txtidcompra" id="txtidcompra" />
+          <input type="hidden" name="txtidproductoc" id="txtidproductoc" />
+          <input type="hidden" name="txtnameImagen" id="txtnameImagen" />
+          <input type="hidden" name="idprov" id="idprov">
+          
+          <div class="formImagen">
+            <img
+              src="/static/img/comprasimagen.jpg"
+              alt="ProductosImagen"
+              id="verImagencompra"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="mensaje">Descripcion:</label>
+            <textarea
+              id="txtdescripcioncompra"
+              name="txtdescripcioncompra"
+              rows="2"
+              required
+              disabled
+            ></textarea>
+          </div>
+
+          <div class="row2">
+            <div class="form-group">
+              <label for="nombre">Nombre Producto:</label>
+              <input
+                type="text"
+                id="nombreproductocompra"
+                name="nombreproductocompra"
+                required
+                disabled
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="telefono">Precio</label>
+              <input
+                type="number"
+                min="1"
+                step="0.01"
+                id="txtpreciocompra"
+                name="txtpreciocompra"
+                required
+                disabled
+              />
+            </div>
+          </div>
+
+          <div class="row2">
+            <div class="form-group">
+              <label for="direccion">Cantidad</label>
+              <input
+                type="number"
+                name="txtcantidadcompra"
+                id="txtcantidadcompra"
+                min="1"
+                step="1"
+                value="0"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="direccion">Subtotal</label>
+              <input
+                type="number"
+                name="txtsubtotal"
+                id="txtsubtotal"
+                min="1"
+                step="1"
+                disabled
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-groupbtn">
+            <button
+              type="button"
+              class="btn"
+              name="btnagregarcar"
+              value="agregar"
+              id="btnagregarcar"
+            >
+              Agregar
+            </button>
+            <button
+              type="button"
+              class="btn"
+              name="btnmodificarCarrito"
+              value="agregar"
+              id="btnmodificarCarrito"
+            >
+              Modificar
+            </button>
+            <button
+              type="button"
+              class="btn"
+              name="btnEliminarCarrito"
+              value="agregar"
+              id="btnEliminarCarrito"
+            >
+              Eliminar
+            </button>
+            
+           
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</dialog>

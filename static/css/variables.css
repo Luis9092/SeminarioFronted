@@ -2,8 +2,8 @@
   --poppins: "Poppins", sans-serif;
   --lato: "Lato", sans-serif;
   --light: #ffffff;
-  --primary-color: #00e0c6;
-  --secondary-color: #00d4aa;
+  --primary-color: #00e0dc;
+  --secondary-color: #00d4d4;
   --error-color: rgb(255, 0, 85);
   --light-blue: #cffffe;
   --grey: #ebf5ff;
@@ -16,12 +16,13 @@
   --blue: #0080ff;
   --light-blue: #d3e5ff;
   --color-shadow: #cccccc;
+  --box-shadowbox: -2.2px -2.2px 1px #1c1c1c8c, 1px 2px 4px rgba(0, 0, 0, 0.845);
 
   --bg-color: #f1f1f1;
   --text-color: #000000;
   --sidebar-bg: #ffffff;
   --hover-color: rgba(160, 255, 236, 0.959);
-  --primaryColor: #1bede6;
+  --primaryColor: #00f0e4;
   --morado-color: #e41bff;
   --celeste-color: #29caff;
   --rojizo-color: #ff266e;

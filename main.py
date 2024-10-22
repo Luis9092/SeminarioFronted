@@ -6,6 +6,7 @@ import requests
 from werkzeug.utils import secure_filename
 import os
 from model.productos import Producto
+from model.Cliente import Cliente
 
 at = autenticarse()
 
@@ -139,7 +140,7 @@ def productosOperaciones(accion):
         ruta = "static/" + nombre
         if os.path.isfile(ruta):
             os.remove(ruta)
-        pro.eliminarImagenResultadoServer(nombre)
+            pro.eliminarImagenResultadoServer(nombre)
 
     if operacion == "actualizar":
         try:
@@ -321,7 +322,76 @@ def comprasrender():
     per = session.get("perfil")
     if "perfil" not in session or not session["perfil"]:
         return redirect(url_for("root"))
-    return render_template("compras.html", per=per)
+
+    url = "http://127.0.0.1:8000/verProductosCompras"
+    url2 = "http://127.0.0.1:8000/verCompras"
+
+    response = requests.get(url)
+    if response.status_code == 200:
+        tablePro = response.json()
+        response2 = requests.get(url2)
+        tablecompra = response2.json()
+
+        return render_template(
+            "compras.html", per=per, tablePro=tablePro, tablecompra=tablecompra
+        )
+
+    return render_template("compras.html", per=per, tablePro=[], tablecompra=[])
+
+
+# CLIENTE
+
+
+@app.route("/clientes")
+def Clientes():
+    per = session.get("perfil")
+    if "perfil" not in session or not session["perfil"]:
+        return redirect(url_for("root"))
+
+    url = "http://127.0.0.1:8000/verClientes"
+
+    response = requests.get(url)
+    if response.status_code == 200:
+        tableCliente = response.json()
+        return render_template("clientes.html", tableCliente=tableCliente, per=per)
+
+    return render_template("clientes.html", tableCliente=[], per=per)
+
+
+@app.route("/clienteOperaciones/<string:accionCliente>", methods=["POST"])
+def ClienteOperaciones(accionCliente):
+    cl = Cliente()
+    operacion = accionCliente
+    txtnombrecliente = request.form["txtnombrecliente"]
+    txtapellidoscliente = request.form["txtapellidoscliente"]
+    txtfinalphone = request.form["txtfinalphone"]
+    txtcorreocliente = request.form["txtcorreocliente"]
+    txtnit = request.form["txtnit"]
+    txtdireccion = request.form["txtdireccion"]
+    txtidCliente = request.form["txtidCliente"]
+
+    cl.constructorCliente(
+        txtidCliente,
+        txtnombrecliente,
+        txtapellidoscliente,
+        txtfinalphone,
+        txtcorreocliente,
+        txtnit,
+        txtdireccion,
+        "",
+    )
+
+    if operacion == "agregar":
+        retorno = cl.agregarCliente()
+        return json.dumps(retorno)
+
+    if operacion == "actualizar":
+        retorno = cl.modificarCliente()
+        return json.dumps(retorno)
+
+    if operacion == "eliminar":
+        retorno = cl.eliminarCliente()
+        return json.dumps(retorno)
 
 
 @app.route("/salir")

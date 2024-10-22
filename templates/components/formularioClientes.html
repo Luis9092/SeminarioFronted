@@ -1,0 +1,117 @@
+<dialog id="modalcliente">
+  <div class="container">
+    <div class="info-container" id="InfoCont">
+      
+
+      <div class="containerProductoform">
+        <div id="btn_cancelarcliente" class="btn_cancelar">
+          <i class="bx bx-x"></i>
+        </div>
+        <h2>Formulario Clientes</h2>
+        <form
+          method="POST"
+          action="/clienteOperaciones"
+          id="formCliente"
+          enctype="multipart/form-data"
+        >
+        <input type="hidden" id="txtidCliente" name="txtidCliente">
+          <div class="row2">
+            <div class="form-group">
+              <label for="email" id="txterrorNombres">Nombres</label>
+              <input
+                type="text"
+                id="txtnombrecliente"
+                name="txtnombrecliente"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="email" id="txterrorApellidos">Apellidos</label>
+              <input
+                type="text"
+                id="txtapellidoscliente"
+                name="txtapellidoscliente"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="row2">
+            <div class="form-group">
+              <label for="nombre" id="errorTelefono">Telefono</label>
+              <input
+                type="tel"
+                id="txttelefonoCli"
+                name="txttelefonoCli"
+                style="width: 100% !important"
+                required
+              />
+              <input type="hidden" id="txtfinalphone" name="txtfinalphone" />
+            </div>
+            <div class="form-group">
+              <label for="nombre" id="txterrorcorreo">Correo</label>
+              <input
+                type="text"
+                id="txtcorreocliente"
+                name="txtcorreocliente"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="row2">
+            <div class="form-group">
+              <label for="nit" id="txterrornit">Nit</label>
+              <input type="text" name="txtnit" id="txtnit" required />
+            </div>
+            <div class="form-group">
+              <label for="direccion" id="txterrroDireccion">Direccion</label>
+              <input
+                type="text"
+                name="txtdireccion"
+                id="txtdireccion"
+                required
+              />
+            </div>
+          </div>
+
+          <div style="display: none;" class="form-group" id="hidefechac" >
+            <label for="nit" id="txterrornit">Fecha Creacion</label>
+            <input type="text" name="txtfechaCreacionc" id="txtfechaCreacionc" required disabled />
+          </div>
+
+          <div class="form-groupbtn">
+            <button
+              type="button"
+              class="btn"
+              name="accionCliente"
+              value="eliminar"
+              id="btnEliminarCliente"
+            >
+              Eliminar
+            </button>
+
+            <button
+              type="button"
+              class="btn"
+              name="accionCliente"
+              value="agregar"
+              id="btnenviarCliente"
+            >
+              Agregar
+            </button>
+            <button
+              type="button"
+              class="btn"
+              name="accionCliente"
+              value="actualizar"
+              id="btnActualizarCliente"
+            >
+              Actualizar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</dialog>

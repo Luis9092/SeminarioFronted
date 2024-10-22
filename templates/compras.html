@@ -13,7 +13,9 @@
       {% include '/components/perfil.html' %}
 
       <main>
-        {% include '/components/formularioProductos.html' %}
+        {% include '/components/formCarritoCompra.html' %} {% include
+        '/components/formagregarCompra.html' %} {% include
+        '/components/formcompraver.html' %}
 
         <div class="head-title">
           <div class="left">
@@ -34,115 +36,103 @@
           <li>
             <i class="bx bxs-calendar-check"></i>
             <span class="text">
-              <h3>5000</h3>
-              <p class="colorGreen">Nuevas Ordenes</p>
+              <h3>100</h3>
+              <p class="colorGreen">Compras Realizadas</p>
             </span>
           </li>
           <li>
             <i class="bx bxs-group"></i>
             <span class="text">
-              <h3>2834</h3>
-              <p class="colorRed">Vendidos</p>
+              <h3>2</h3>
+              <p class="colorRed">Compras En Procesos</p>
             </span>
           </li>
           <li>
             <i class="bx bxs-dollar-circle"></i>
             <span class="text">
-              <h3>$2543</h3>
-              <p class="colorBlue">Total Ganancia</p>
+              <h3>400</h3>
+              <p class="colorBlue">Total Productos</p>
             </span>
           </li>
         </ul>
 
-        <div class="table-data">
-          <div class="order">
-            <div class="head">
-              <h3>Top Productos</h3>
-              <i class="bx bx-search"></i>
-              <i class="bx bx-filter"></i>
-            </div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Producto</th>
-                  <th>Total venta</th>
-                  <th>Estado</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <img src=" " />
-                    <p></p>
-                  </td>
-                  <td>9997123</td>
-                  <td><span class="status pending">Pendiente</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src=" " />
-                    <p></p>
-                  </td>
-                  <td>887128</td>
-                  <td><span class="status process">En proceso</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src=" " />
-                    <p></p>
-                  </td>
-                  <td>98126</td>
-                  <td><span class="status pending">Pendiente</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="" />
-                    <p></p>
-                  </td>
-                  <td>97621</td>
-                  <td><span class="status completed">Completado</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="todo">
-            <div class="head">
-              <h3>Seccion Compras</h3>
-              <i class="bx bx-plus" id="btnAgregarProductos"></i>
-              <i class="bx bx-filter"></i>
-            </div>
-            <div class="top1productos">
-              <img src="/static/img/comprasimagen.jpg" alt="" />
-            </div>
-          </div>
-        </div>
-        <div class="tablePrincipal">
+        <div class="tablePrincipal tableProductoxCompra">
           <div class="header">
-            <h1><i class="fas fa-list"></i> Productos agregadas</h1>
+            <h1><i class="fas fa-list"></i> Realizar Compra A Proveedor</h1>
           </div>
-          <table>
+          <table id="datatable">
             <thead>
               <tr>
+                <th></th>
+                <th>id</th>
                 <th>No</th>
                 <th>Producto</th>
                 <th>Precio</th>
                 <th>Cantidad</th>
-                <th>Precio Venta</th>
+                <th>Proveedor</th>
+                <th>Categoria</th>
+                <th>idproveedor</th>
                 <th>imagen</th>
-                <th>Fecha Creacion</th>
+                <th>descripcion</th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+              {% for tb in tablePro %}
+
+              <tr>
+                <td>{{tb.id}}</td>
+                <td>{{loop.index}}</td>
+                <td>{{tb.nombre}}</td>
+                <td>{{tb.precioVenta}}</td>
+                <td>{{tb.cantidad}}</td>
+                <td>{{tb.nombreProveedor}}</td>
+                <td>{{tb.nombreCategoria}}</td>
+                <td>{{tb.proveedorid}}</td>
+                <td>{{tb.imagen}}</td>
+                <td>{{tb.descripcion}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="tablePrincipal">
+          <div class="header">
+            <h1><i class="fas fa-list"></i>Compras</h1>
+          </div>
+          <table id="tableCompras" class="display row-border">
+            <thead>
+              <tr>
+                <th style="display: none">id</th>
+                <th>No</th>
+                <th>No. Orden</th>
+                <th>Fecha Compra</th>
+                <th>Estado</th>
+                <th>Proveedor</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for tb in tablecompra %}
+
+              <tr>
+                <td style="display: none">{{tb.id}}</td>
+                <td>{{loop.index}}</td>
+                <td>0{{tb.ordencomPra}}</td>
+                <td>{{tb.fechaOrden}}</td>
+                <td>{{tb.fechaIngreso}}</td>
+                <td>{{tb.proveedor}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
           </table>
         </div>
       </main>
     </section>
+
     <script>
-      const txtProveedor = document.querySelector("#txtProveedor");
-      const txtcategoria2 = document.querySelector("#txtcategoria");
+      const txtProveedor2 = document.querySelector("#txtproveedorcompra");
 
       async function DinamicSelect(entrada, url, id, valor) {
-        // Limpiar opciones existentes antes de agregar nuevas
         entrada.innerHTML = "";
         await axios
           .get(url)
@@ -165,21 +155,15 @@
 
       async function pintar() {
         await DinamicSelect(
-          txtProveedor,
+          txtProveedor2,
           "http://127.0.0.1:8000/verProveedores",
           "id",
           "nombre"
         );
-
-        await DinamicSelect(
-          txtcategoria2,
-          "http://127.0.0.1:8000/vercategoria",
-          "id",
-          "categoria"
-        );
       }
       pintar();
     </script>
+    <script src="/static/js/maintableCompras.js"></script>
     {%include '/components/footer.html' %}
   </body>
 </html>

@@ -1,0 +1,111 @@
+<dialog id="modalCarrito">
+  <div class="container">
+    <div class="info-container" id="InfoCont">
+      <br />
+
+      <div class="containerProductoform">
+        <div id="btn_cancelarcarrito" class="btn_cancelar">
+          <i class="bx bx-x"></i>
+        </div>
+        <h2 id="titulocarrito">Productos Agregados</h2>
+        <form
+          method="POST"
+          action="/productosOperaciones"
+          id="formProducto"
+          enctype="multipart/form-data"
+        >
+          <input type="hidden" name="norden" id="norden" />
+          <input
+            type="hidden"
+            id="iduser"
+            name="iduser"
+            value="{{session['id']}}"
+          />
+          <div class="row2">
+            <div class="form-group">
+              <label for="nombre">Nombre Usuario</label>
+              <input
+                type="text"
+                id="txtnombreCliente"
+                name="txtnombreCliente"
+                value="{{session['nombres']}}"
+                required
+                disabled
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="">Proveedor</label>
+              <select
+                id="txtproveedorcompra"
+                name="txtproveedorcompra"
+                required
+              ></select>
+            </div>
+          </div>
+
+          <div class="tablePrincipal divtablecarrito">
+            <table id="tablecarrito" class="display row-border">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th style="display: none">id</th>
+                  <th>Producto</th>
+                  <th>Descripcion</th>
+                  <th>Precio</th>
+                  <th>Cantidad</th>
+                  <th>Subtotal</th>
+                  <th style="display: none">Imagen</th>
+                  <th>Proveedor</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+
+            <div
+              class="divtotal"
+              style="
+                width: 100%;
+                margin: 10px 0;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+              "
+            >
+              <label for="total">Total:</label>
+              <input
+                style="border: 1px solid gray; border-radius: 4px; padding: 6px"
+                type="text"
+                id="txttotal"
+                name="txttotal"
+                disabled
+              />
+            </div>
+          </div>
+
+          <div class="form-groupbtn">
+            <button
+              type="button"
+              class="btn"
+              name="btnrealizarPedido"
+              value="agregar"
+              id="btnrealizarPedido"
+            >
+              Realizar Pedido
+            </button>
+
+            <button
+              type="button"
+              class="btn"
+              name="btncancerlaPedido"
+              value="agregar"
+              id="btncancerlaPedido"
+            >
+              Cancelar Pedido
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</dialog>

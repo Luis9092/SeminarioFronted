@@ -1,5 +1,5 @@
 .containerProductoform {
-  width: 60%;
+  width: 70%;
   margin: auto;
   background: var(--grey);
   padding: 20px;
@@ -34,7 +34,7 @@
 h2 {
   text-align: center;
   color: var(--dark);
-  margin: 0.5rem 0;
+  margin-bottom: 1.2rem;
 }
 .form-group {
   width: 100%;
@@ -152,6 +152,10 @@ input[type="file"]::file-selector-button:hover {
   text-decoration: none;
 }
 
+#modalCompraver,
+#modalAgregarProducto,
+#modalCarrito,
+#modalcliente,
 #modalProductos {
   background-color: transparent;
   top: 50%;
@@ -166,8 +170,8 @@ input[type="file"]::file-selector-button:hover {
 
 .tablePrincipal {
   background-color: var(--light);
-  margin-top: 1rem;
-  padding: 1rem;
+  margin: 2.6rem 0;
+  padding: 2rem 1rem;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -241,13 +245,18 @@ tbody tr:hover {
   display: block;
 }
 
+.swal2-container.swal2-backdrop-show,
+.swal2-container.swal2-noanimation {
+  background-color: transparent !important;
+}
+
 @media (max-width: 600px) {
   .containerProductoform {
     width: 100%;
 
     margin: 0;
   }
-
+  #modalcliente,
   #modalProductos {
     width: 100%;
     margin: 0;

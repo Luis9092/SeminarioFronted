@@ -29,20 +29,23 @@
             </ul>
           </div>
         </div>
+        {% set total_items = tableProductos | length%}
 
         <ul class="box-info">
           <li>
             <i class="bx bxs-calendar-check"></i>
             <span class="text">
-              <h3>5000</h3>
-              <p class="colorGreen">Nuevas Ordenes</p>
+              <h3>{{ total_items }}</h3>
+              <p class="colorGreen">Total Productos</p>
             </span>
           </li>
           <li>
+            {% set total = 0 %} {% for item in tableProductos %} {% set total =
+            total + item.cantidad %} {% endfor %}
             <i class="bx bxs-group"></i>
             <span class="text">
-              <h3>2834</h3>
-              <p class="colorRed">Vendidos</p>
+              <h3>{{total}}</h3>
+              <p class="colorRed">Productos Almacenados</p>
             </span>
           </li>
           <li>
@@ -134,7 +137,7 @@
                 <th>Precio Venta</th>
                 <th>imagen</th>
                 <th>Fecha Creacion</th>
-                <th style="display: none;">paht</th>
+                <th style="display: none">paht</th>
               </tr>
             </thead>
             <tbody>
@@ -144,6 +147,7 @@
                 <td style="display: none">{{ tb.descripcion }}</td>
                 <td style="display: none">{{ tb.proveedorid}}</td>
                 <td style="display: none">{{ tb.idcategoria}}</td>
+
                 <td>{{ loop.index }}</td>
                 <td>{{ tb.nombre }}</td>
                 <td>{{ tb.precio }}</td>
@@ -157,7 +161,7 @@
                   />
                 </td>
                 <td>{{tb.fechaingreso }}</td>
-                <td style="display: none;">{{tb.imagen }}</td>
+                <td style="display: none">{{tb.imagen }}</td>
               </tr>
               {% endfor %}
             </tbody>
@@ -170,7 +174,6 @@
       const txtcategoria2 = document.querySelector("#txtcategoria");
 
       async function DinamicSelect(entrada, url, id, valor) {
-        // Limpiar opciones existentes antes de agregar nuevas
         entrada.innerHTML = "";
         await axios
           .get(url)

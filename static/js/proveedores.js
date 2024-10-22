@@ -117,7 +117,7 @@ function alertModal(color, mensaje, icon) {
 $(document).ready(function () {
     $("#tableProveedores").DataTable({
         language: {
-            url: "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json",
+            url: "https://cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json",
         },
         scrollY: true,
         scrollX: true,

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {%include '/components/header.html'%}
+    <title>Clientes</title>
+  </head>
+  <body>
+    <!-- CONTENT -->
+    {% include '/components/menu.html' %}
+
+    <section id="content">
+      <!-- NAVBAR -->
+      {% include '/components/perfil.html' %} {% include
+      '/components/formularioClientes.html' %}
+
+      <main>
+        <div class="head-title">
+          <div class="left">
+            <h1>Generales</h1>
+            <ul class="breadcrumb">
+              <li>
+                <a href="#">Generales</a>
+              </li>
+              <li><i class="bx bx-chevron-right"></i></li>
+              <li>
+                <a class="active" href="#">Clientes</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        {% set total_items = tableCliente | length%}
+
+        <ul class="box-info">
+          <li>
+            <i class="bx bxs-calendar-check"></i>
+            <span class="text">
+              <h3>{{total_items}}</h3>
+              <p class="colorGreen">Total Clientes</p>
+            </span>
+          </li>
+          <li>
+            <i class="bx bxs-group"></i>
+            <span class="text">
+              <h3></h3>
+              <p class="colorRed">Dedicacion</p>
+            </span>
+          </li>
+          <li>
+            <i class="bx bxs-dollar-circle"></i>
+            <span class="text">
+              <h3></h3>
+              <p class="colorBlue">Transparencia</p>
+            </span>
+          </li>
+        </ul>
+        <div class="tablePrincipal">
+          <button id="btnAgregarCliente" class="btn">Agregar Cliente</button>
+
+          <div class="header">
+            <h1><i class="fas fa-list"></i> Clientes Agregados</h1>
+          </div>
+          <table id="tableClientes" class="display row-border">
+            <thead>
+              <tr>
+                <th style="display: none">id</th>
+                <th>No</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Telefono</th>
+                <th>Correo</th>
+                <th>Nit</th>
+                <th>Direccion</th>
+                <th>Fecha Creacion</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for tb in tableCliente %}
+              <tr>
+                <td style="display: none">{{ tb.id }}</td>
+                <td>{{ loop.index }}</td>
+                <td>{{ tb.nombres }}</td>
+                <td>{{ tb.apellidos }}</td>
+                <td>{{ tb.telefono }}</td>
+                <td>{{ tb.email }}</td>
+                <td>{{ tb.nit }}</td>
+                <td>{{ tb.direccion }}</td>
+                <td>{{ tb.fechaCreacion }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </section>
+
+    {%include '/components/footer.html' %}
+  </body>
+</html>
