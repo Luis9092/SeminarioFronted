@@ -22,6 +22,7 @@ if (btn_cancelarcliente) {
     });
 }
 
+const txttotal = document.querySelector("#txttotal");
 const txtnombrecliente = document.querySelector("#txtnombrecliente");
 const txtapellidoscliente = document.querySelector("#txtapellidoscliente");
 const txttelefonoCli = document.querySelector("#txttelefonoCli");
@@ -94,6 +95,14 @@ if (txtapellidoscliente) {
 }
 
 
+if (txttelefonoCli) {
+    const phoneInput = window.intlTelInput(txttelefonoCli, {
+        preferredCountries: ["gt", "mx", "sv", "hn", "us"],
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+}
 
 
 
@@ -122,12 +131,6 @@ const validatePhoneNumberI = (TelI, error, phone, e) => {
 };
 
 if (txttelefonoCli) {
-    const phoneInput = window.intlTelInput(txttelefonoCli, {
-        preferredCountries: ["gt", "mx", "sv", "hn", "us"],
-        utilsScript:
-            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-    });
-
     txttelefonoCli.addEventListener("blur", (e) =>
         validatePhoneNumberI(txtfinalphone, errorTelefono, phoneInput, e)
     );
