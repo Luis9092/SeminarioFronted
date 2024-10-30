@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {%include '/components/header.html'%}
+    <title>Productos</title>
+  </head>
+  <body>
+    <!-- CONTENT -->
+    {% include '/components/menu.html' %}
+    <canvas id="systemsCanvas"></canvas>
+
+    <section id="content">
+      <!-- NAVBAR -->
+      {% include '/components/perfil.html' %}
+
+      <main>
+        <div class="head-title">
+          <div class="left">
+            <h1>Generales</h1>
+            <ul class="breadcrumb">
+              <li>
+                <a href="#">Generales</a>
+              </li>
+              <li><i class="bx bx-chevron-right"></i></li>
+              <li>
+                <a class="active" href="#">Balance</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tablePrincipal">
+          <div class="header">
+            <h1><i class="fas fa-list"></i> Productos Agregados</h1>
+          </div>
+          <table id="tableBalance" class="display">
+            <thead>
+              <tr>
+                <th style="display: none">id</th>
+
+                <th>No</th>
+                <th>Producto</th>
+                <th>Descripcion</th>
+                <th>Existencias</th>
+                <th>Vendido</th>
+                <th>Total</th>
+                <th>Total Vendido</th>
+                <th>Precio</th>
+                <th>imagen</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for tb in tableProductos %}
+              <tr class="{{tb.estado}}" >
+                <td style="display: none">{{ tb.id }}</td>
+
+                <td>{{ loop.index }}</td>
+                <td>{{ tb.nombre }}</td>
+                <td>{{ tb.descripcion }}</td>
+                <td>{{ tb.cantidadExistencias }}</td>
+                <td>{{ tb.cantidadVendida }}</td>
+                <td>{{ tb.totaldinero }}</td>
+                <td>{{ tb.totaldineroVentas }}</td>
+                <td>{{ tb.precioVentaProducto }}</td>
+                <td class="image-cell">
+                  <img
+                    src="{{tb.imagen}}"
+                    alt="Imagen Producto"
+                    class="thumbnail"
+                  />
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </section>
+    <script>
+      $(document).ready(function () {
+        $("#tableBalance").DataTable({
+          language: {
+            url: "https://cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json",
+          },
+          scrollY: true,
+          scrollX: true,
+        });
+      });
+    </script>
+
+    <script src="/static/js/mainparticles.js"></script>
+    {%include '/components/footer.html' %}
+  </body>
+</html>

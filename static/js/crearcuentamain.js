@@ -1,32 +1,39 @@
 //18122022
 /* global Swal */
 const txtCorreoUsuario = document.querySelector("#txtCorreoUsuario");
-const txtPassword = document.querySelector("#txtPassword");
 const eye_show = document.querySelector("#eye-show");
 const eye_hide = document.querySelector("#eye-hide");
 
 let Ifacebook = "",
   Itwitter = "",
   Iinstragram = "";
-eye_show.onclick = () => {
-  if (txtPassword.type === "password") {
-    txtPassword.type = "text";
-    eye_show.classList.replace("show", "hide");
-    eye_hide.classList.replace("hide", "show");
-  }
-};
 
-eye_hide.onclick = () => {
-  if (txtPassword.type === "text") {
-    txtPassword.type = "password";
-    eye_show.classList.replace("hide", "show");
-    eye_hide.classList.replace("show", "hide");
-  }
-};
+// const txtPassword = document.querySelector("#txtPassword");
+
+// if(eye_show){
+//   eye_show.onclick = () => {
+//     if (txtPassword.type === "password") {
+//       txtPassword.type = "text";
+//       eye_show.classList.replace("show", "hide");
+//       eye_hide.classList.replace("hide", "show");
+//     }
+//   };
+  
+// }  
+// if(eye_hide){
+//   eye_hide.onclick = () => {
+//     if (txtPassword.type === "text") {
+//       txtPassword.type = "password";
+//       eye_show.classList.replace("hide", "show");
+//       eye_hide.classList.replace("show", "hide");
+//     }
+//   };
+  
+// }
 
 let verificar_input = {
   txtCorreoUsuario: true,
-  txtPassword: true,
+  // txtPassword: true,
 };
 
 document.querySelector("#accion").addEventListener("click", (e) => {
@@ -68,7 +75,7 @@ function ValidacionLogin(icono, color, mensaje) {
   });
 }
 txtCorreoUsuario.addEventListener("input", (e) => validatefieldWhite(e));
-txtPassword.addEventListener("input", (e) => validatefieldWhite(e));
+// txtPassword.addEventListener("input", (e) => validatefieldWhite(e));
 txtCorreoUsuario.addEventListener("change", (e) => validateEmailB(e));
 
 const validatefieldWhite = (e) => {
@@ -99,7 +106,7 @@ const validateEmailB = (e) => {
 
 
 submitController = () => {
-  if (verificar_input.txtCorreoUsuario || verificar_input.txtPassword) {
+  if (verificar_input.txtCorreoUsuario) {
     ValidacionLogin("warning", "#FF0000", "Por favor llenar los campos correctamente*");
   } else {
     Swal.fire({

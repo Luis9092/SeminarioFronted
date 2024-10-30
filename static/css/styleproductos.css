@@ -1,3 +1,35 @@
+/* DEFINIENDO ESTILO PARA PRODUCTOS */
+
+.title {
+  width: 100%;
+  text-align: center;
+  margin: 30px 0;
+  font-weight: bold;
+  position: relative;
+}
+
+.title::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 1px;
+  background: var(--text-color);
+  z-index: 1;
+}
+
+.title span {
+  position: relative;
+  font-size: 1.2rem;
+  padding: 0.3rem 2rem;
+  color: black;
+  background: #fff;
+  border: 1px solid var(--text-color);
+  z-index: 99 !important;
+}
+
 .containerProductoform {
   width: 70%;
   margin: auto;
@@ -75,7 +107,7 @@ input:focus-visible {
     to right,
     #1be8ff 0%,
     #00858f 48%,
-    #1bffec 100%
+    var(--light) 100%
   );
   margin: 10px;
   padding: 15px 45px;
@@ -114,7 +146,7 @@ input:focus-visible {
 }
 .btn_cancelar i {
   padding: 4px;
-  background-color: red;
+  background-color: var(--primary-color);
   border-radius: 4px;
 }
 
@@ -199,16 +231,10 @@ td {
   /* border-bottom: 1px solid var(--grey); */
 }
 
-th {
-  background-color: #00a2a8;
-  color: var(--dark);
-  font-weight: 700;
-  text-transform: uppercase;
-}
+
 
 td {
   background-color: var(--grey);
-  color: var(--dark);
 }
 
 tbody tr:hover {
@@ -243,6 +269,13 @@ tbody tr:hover {
   width: 100%;
   height: auto;
   display: block;
+}
+
+#tableProductos img {
+  width: 100%;
+  height: 2.4rem;
+  object-fit: cover;
+  background-color: red !important;
 }
 
 .swal2-container.swal2-backdrop-show,

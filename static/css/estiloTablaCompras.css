@@ -1,8 +1,8 @@
 /*18122022*/
 
-/* input[type = "checkbox"]{
-    accent-color: var(--secondary-color);
-} */
+input[type="checkbox"] {
+  accent-color: red;
+}
 
 ::-webkit-scrollbar {
   height: 5px;
@@ -27,9 +27,8 @@
   align-items: center;
   background-image: linear-gradient(
     to top,
-    #24433a 0%,
-    #47ffe7 0%,
-    var(--light) 100%
+    #1cf2eb 0%,
+    var(--light) 80%
   );
 
   margin: 30px 0 0 0;
@@ -296,6 +295,7 @@ thead th:nth-child(12) {
   font-style: italic;
   border-radius: 2px;
   padding: 0 2px;
+  margin: 0 10px;
 }
 
 .n-entries:active,

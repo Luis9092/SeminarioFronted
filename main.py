@@ -29,7 +29,12 @@ def home():
 
 @app.route("/crearcuenta")
 def crearcuenta():
-    return render_template("crearcuenta.html")
+    per = session.get("role")
+    print(per)
+    if per == 1:
+        return render_template("crearcuenta.html")
+
+    return redirect(url_for("root"))
 
 
 @app.route("/productos")
@@ -62,7 +67,7 @@ def crearUsuario():
     nombres = request.form["txtnombres"]
     apellidos = request.form["txtapellidos"]
     correo = request.form["txtCorreoUsuario"]
-    pasw = request.form["txtPassword"]
+    pasw = ""
     retorno = at.crearCuenta(nombres, apellidos, correo, pasw)
 
     return json.dumps(retorno)
@@ -79,6 +84,8 @@ def iniciarSesion():
         per = retorno.json()
         session["perfil"] = per
         session["nombres"] = per["nombres"] + " " + per["apellidos"]
+        session["role"] = per["idrol"]
+
         print(per)
         respuesta = {"estado": 1, "mensaje": "Autenticacion Encontrada"}
         return json.dumps(respuesta)
@@ -249,8 +256,6 @@ def ventas():
     if "perfil" not in session or not session["perfil"]:
         return redirect(url_for("root"))
 
-
-
     return render_template("ventas.html", tableVentas=[], per=per)
 
 
@@ -387,6 +392,21 @@ def ClienteOperaciones(accionCliente):
     if operacion == "eliminar":
         retorno = cl.eliminarCliente()
         return json.dumps(retorno)
+
+
+@app.route("/balance")
+def balance():
+    per = session.get("perfil")
+    if "perfil" not in session or not session["perfil"]:
+        return redirect(url_for("root"))
+    url = "http://127.0.0.1:8000/veropereacionesProductos"
+
+    response = requests.get(url)
+    if response.status_code == 200:
+        tableProductos = response.json()
+        return render_template("balance.html", tableProductos=tableProductos, per=per)
+
+    return render_template("balance.html", tableProductos=[], per=per)
 
 
 @app.route("/salir")

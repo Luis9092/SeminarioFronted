@@ -3,118 +3,279 @@
   <head>
     {%include '/components/header.html'%}
     <title>Inicio</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+
+      .hero {
+        height: 76vh;
+        background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+          url("/static/img/home2.jpg");
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        padding: 0 1rem;
+        border-radius: 10px;
+      }
+      .hero-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .hero-content h1 {
+        text-align: center;
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(2px);
+      }
+
+      .hero-content p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(2px);
+        padding: 4px;
+      }
+
+      .btnremove {
+        box-shadow: none;
+      }
+
+      .categories {
+        padding: 5rem 1rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .category-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .category-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: var(--light);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s;
+        transform-style: preserve-3d;
+        perspective: 1000px;
+        border: 1px solid var(--border-color);
+      }
+
+      .category-card:hover {
+        transform: translateY(-10px) rotateX(5deg);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      .category-image {
+        height: 200px;
+        overflow: hidden;
+        padding: 20px 8px;
+      }
+
+      .category-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        transition: transform 0.3s;
+      }
+
+      .category-card:hover .category-image img {
+        transform: scale(1.1);
+      }
+
+      .category-content {
+        padding: 12px 8px;
+        background-color: var(--secondary-color);
+      }
+
+      .category-content h3 {
+        margin-bottom: 0.5rem;
+        color: var(--dark);
+      }
+
+      .category-content p {
+        color: var(--text-color);
+        text-align: justify;
+      }
+
+      footer {
+        background-color: var(--light);
+        color: var(--text-color);
+        padding: 2rem 1rem;
+        border-radius: 10px;
+        border: 1px solid var(--border-color);
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+      }
+
+      .footer-content h3 {
+        margin-bottom: 1rem;
+        position: relative;
+        padding-bottom: 0.5rem;
+      }
+
+      .footer-content h3::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 2px;
+        background: var(--red);
+      }
+
+      .footer-content p {
+        margin-bottom: 0.5rem;
+        opacity: 0.8;
+      }
+
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+        }
+
+        .hero-content h1 {
+          font-size: 2.5rem;
+        }
+      }
+    </style>
   </head>
   <body>
     <!-- CONTENT -->
     {% include '/components/menu.html' %}
+    <canvas id="systemsCanvas"></canvas>
 
     <section id="content">
       <!-- NAVBAR -->
       {% include '/components/perfil.html' %}
 
       <main>
-        <div class="head-title">
-          <div class="left">
-            <h1>Dashboard</h1>
-            <ul class="breadcrumb">
-              <li>
-                <a href="#">Dashboard</a>
-              </li>
-              <li><i class="bx bx-chevron-right"></i></li>
-              <li>
-                <a class="active" href="#">Home</a>
-              </li>
-            </ul>
+        <section class="hero" id="inicio">
+          <div class="hero-content">
+            <h1 data-aos="zoom-in">Tu Ferretería de Confianza</h1>
+            <p data-aos="fade-up" data-aos-delay="200">
+              Encuentra todo lo que necesitas para tus proyectos de construcción
+              y mejoras del hogar
+            </p>
+            <button
+              class="btn btnremove"
+              data-aos="fade-up"
+              data-aos-delay="400"
+            >
+              <i class="bx bx-happy-alt bx-tada"></i>
+              Bienvenido
+            </button>
           </div>
-       
-        </div>
+        </section>
 
-        <ul class="box-info">
-          <li>
-            <i class="bx bxs-calendar-check"></i>
-            <span class="text">
-              <h3>1020</h3>
-              <p class="colorGreen">Nuevas Ordenes</p>
-            </span>
-          </li>
-          <li>
-            <i class="bx bxs-group"></i>
-            <span class="text">
-              <h3>2834</h3>
-              <p class="colorRed">Entregados</p>
-            </span>
-          </li>
-          <li>
-            <i class="bx bxs-dollar-circle"></i>
-            <span class="text">
-              <h3>$2543</h3>
-              <p class="colorBlue">Total de Entregas</p>
-            </span>
-          </li>
-        </ul>
+        <section class="categories" id="categorias">
+          <div class="title">
+            <h2 data-aos="fade-down"><span>Nuestras Categorías</span></h2>
+          </div>
+          <div class="category-grid">
+            <div class="category-card" data-aos="flip-left">
+              <div class="category-image">
+                <img src="/static/img/herramientasre.png" alt="Herramientas" />
+              </div>
+              <div class="category-content">
+                <h3>Herramientas</h3>
+                <p>Todo tipo de herramientas.</p>
+              </div>
+            </div>
+            <div
+              class="category-card"
+              data-aos="flip-left"
+              data-aos-delay="100"
+            >
+              <div class="category-image">
+                <img src="/static/img/pinter3re.png" alt="Pinturas" />
+              </div>
+              <div class="category-content">
+                <h3>Pinturas</h3>
+                <p>Amplia gama de pinturas y accesorios</p>
+              </div>
+            </div>
+            <div
+              class="category-card"
+              data-aos="flip-left"
+              data-aos-delay="200"
+            >
+              <div class="category-image">
+                <img src="/static/img/electro2.svg" alt="Electricidad" />
+              </div>
+              <div class="category-content">
+                <h3>Electricidad</h3>
+                <p>Material eléctrico de alta calidad</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
-        <div class="table-data">
-          <div class="order">
-            <div class="head">
-              <h3>Personas Empresa</h3>
-              <i class="bx bx-search"></i>
-              <i class="bx bx-filter"></i>
+        <footer id="contacto">
+          <div class="footer-content">
+            <div data-aos="fade-up">
+              <h3>Contacto</h3>
+              <p>
+                <i class="bx bxs-phone-incoming bx-tada"></i> Teléfono: (502)
+                4122-7890
+              </p>
+              <p>
+                <i class="bx bxs-envelope bx-tada"></i> Correo:
+                ferreteriagodoys@gmail.com
+              </p>
+              <p>
+                <i class="bx bxs-map-pin bx-tada"></i> Dirección: Calle
+                Principal #123
+              </p>
             </div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Usuarios</th>
-                  <th>Fecha Orden</th>
-                  <th>Estado</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <img src="/static/img/perfil.png" />
-                    <p>Luis Fernando</p>
-                  </td>
-                  <td>01-10-2021</td>
-                  <td><span class="status pending">Pendiente</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="/static/img/perfil.png" />
-                    <p>Luis Fernando</p>
-                  </td>
-                  <td>01-10-2021</td>
-                  <td><span class="status process">En proceso</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="/static/img/perfil.png" />
-                    <p>Luis Fernando</p>
-                  </td>
-                  <td>01-10-2021</td>
-                  <td><span class="status pending">Pendiente</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="/static/img/perfil.png" />
-                    <p>Luis Fernando</p>
-                  </td>
-                  <td>01-10-2021</td>
-                  <td><span class="status completed">Completado</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="todo">
-            <div class="head">
-              <h3>Todos</h3>
-              <i class="bx bx-plus"></i>
-              <i class="bx bx-filter"></i>
+            <div data-aos="fade-up" data-aos-delay="100">
+              <h3>Horario</h3>
+              <p>Lunes a Viernes: 8:00 - 18:00</p>
+              <p>Sábados: 9:00 - 14:00</p>
+              <p>Domingos: Cerrado</p>
             </div>
-            <canvas id="barChart" class="rad-chart"></canvas>
+            <div data-aos="fade-up" data-aos-delay="200">
+              <h3>Síguenos</h3>
+              <p><i class="bx bxl-facebook-circle bx-tada"></i> Facebook</p>
+              <p><i class="bx bxl-instagram-alt bx-tada"></i> Instagram</p>
+              <p><i class="bx bxl-twitter bx-tada"></i> Twitter</p>
+            </div>
           </div>
-        </div>
+        </footer>
       </main>
     </section>
+    <script src="/static/js/mainparticles.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100,
+      });
+    </script>
     {%include '/components/footer.html' %}
   </body>
 </html>

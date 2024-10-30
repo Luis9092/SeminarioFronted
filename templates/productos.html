@@ -7,6 +7,7 @@
   <body>
     <!-- CONTENT -->
     {% include '/components/menu.html' %}
+    <canvas id="systemsCanvas"></canvas>
 
     <section id="content">
       <!-- NAVBAR -->
@@ -40,18 +41,16 @@
             </span>
           </li>
           <li>
-            {% set total = 0 %} {% for item in tableProductos %} {% set total =
-            total + item.cantidad %} {% endfor %}
             <i class="bx bxs-group"></i>
             <span class="text">
-              <h3>{{total}}</h3>
-              <p class="colorRed">Productos Almacenados</p>
+              <h3 id="txtpasivo"></h3>
+              <p class="colorRed">Total Productos Bodega</p>
             </span>
           </li>
           <li>
             <i class="bx bxs-dollar-circle"></i>
             <span class="text">
-              <h3>$2543</h3>
+              <h3 id="txtganancia"></h3>
               <p class="colorBlue">Total Ganancia</p>
             </span>
           </li>
@@ -60,59 +59,23 @@
         <div class="table-data">
           <div class="order">
             <div class="head">
-              <h3>Top Productos</h3>
+              <h3>Productos Agregagos Por Dia</h3>
               <i class="bx bx-search"></i>
               <i class="bx bx-filter"></i>
             </div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Producto</th>
-                  <th>Total venta</th>
-                  <th>Estado</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <img src="{{tableProductos[0].imagen}}" />
-                    <p>{{tableProductos[0].nombre}}</p>
-                  </td>
-                  <td>9997123</td>
-                  <td><span class="status pending">Pendiente</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="{{tableProductos[1].imagen}}" />
-                    <p>{{tableProductos[1].nombre}}</p>
-                  </td>
-                  <td>887128</td>
-                  <td><span class="status process">En proceso</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="{{tableProductos[2].imagen}}" />
-                    <p>{{tableProductos[2].nombre}}</p>
-                  </td>
-                  <td>98126</td>
-                  <td><span class="status pending">Pendiente</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="{{tableProductos[2].imagen}}" />
-                    <p>{{tableProductos[2].nombre}}</p>
-                  </td>
-                  <td>97621</td>
-                  <td><span class="status completed">Completado</span></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="chart">
+              <div id="chart"></div>
+            </div>
           </div>
           <div class="todo">
             <div class="head">
               <h3>Ultimo producto agregado</h3>
-              <i class="bx bx-plus" id="btnAgregarProductos"></i>
-              <i class="bx bx-filter"></i>
+              <i
+                class="bx bx-plus"
+                id="btnAgregarProductos"
+                title="Agregar Producto"
+              ></i>
+              <i class="bx bx-filter" title="filtrar"></i>
             </div>
             <div class="top1productos">
               <img src="{{tableProductos[0].imagen}}" alt="" />
@@ -121,9 +84,9 @@
         </div>
         <div class="tablePrincipal">
           <div class="header">
-            <h1><i class="fas fa-list"></i> Productos agregadas</h1>
+            <h1><i class="fas fa-list"></i> Productos Agregados</h1>
           </div>
-          <table id="tableProductos" class="display row-border">
+          <table id="tableProductos" class="display ">
             <thead>
               <tr>
                 <th style="display: none">id</th>
@@ -138,6 +101,8 @@
                 <th>imagen</th>
                 <th>Fecha Creacion</th>
                 <th style="display: none">paht</th>
+                <th>Proveedor</th>
+                <th>Categoria</th>
               </tr>
             </thead>
             <tbody>
@@ -162,6 +127,8 @@
                 </td>
                 <td>{{tb.fechaingreso }}</td>
                 <td style="display: none">{{tb.imagen }}</td>
+                <td>{{tb.proveedor }}</td>
+                <td>{{tb.categoria }}</td>
               </tr>
               {% endfor %}
             </tbody>
@@ -211,6 +178,7 @@
       }
       pintar();
     </script>
+    <script src="/static/js/mainparticles.js"></script>
     {%include '/components/footer.html' %}
   </body>
 </html>

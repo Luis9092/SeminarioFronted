@@ -94,14 +94,6 @@ if (txtapellidoscliente) {
 }
 
 
-if (txttelefonoCli) {
-    const phoneInput = window.intlTelInput(txttelefonoCli, {
-        preferredCountries: ["gt", "mx", "sv", "hn", "us"],
-        utilsScript:
-            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-    });
-
-}
 
 
 
@@ -130,6 +122,12 @@ const validatePhoneNumberI = (TelI, error, phone, e) => {
 };
 
 if (txttelefonoCli) {
+    const phoneInput = window.intlTelInput(txttelefonoCli, {
+        preferredCountries: ["gt", "mx", "sv", "hn", "us"],
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
     txttelefonoCli.addEventListener("blur", (e) =>
         validatePhoneNumberI(txtfinalphone, errorTelefono, phoneInput, e)
     );
@@ -185,7 +183,11 @@ const validateNit = (error, e) => {
         error.style.color = "var(--dark)";
         error.innerText = "NIT válido";
         erroresvalidar[field_id] = false;
-
+    }
+    if (fieldValue == "cf") {
+        error.style.color = "var(--dark)";
+        error.innerText = "NIT válido";
+        erroresvalidar[field_id] = false;
     }
 
     submitController();

@@ -1,20 +1,18 @@
 <dialog id="modalcliente">
   <div class="container">
     <div class="info-container" id="InfoCont">
-      
-
       <div class="containerProductoform">
         <div id="btn_cancelarcliente" class="btn_cancelar">
           <i class="bx bx-x"></i>
         </div>
-        <h2>Formulario Clientes</h2>
+        <h3 class="title"><span>Formulario Clientes</span></h3>
         <form
           method="POST"
           action="/clienteOperaciones"
           id="formCliente"
           enctype="multipart/form-data"
         >
-        <input type="hidden" id="txtidCliente" name="txtidCliente">
+          <input type="hidden" id="txtidCliente" name="txtidCliente" />
           <div class="row2">
             <div class="form-group">
               <label for="email" id="txterrorNombres">Nombres</label>
@@ -75,9 +73,15 @@
             </div>
           </div>
 
-          <div style="display: none;" class="form-group" id="hidefechac" >
+          <div style="display: none" class="form-group" id="hidefechac">
             <label for="nit" id="txterrornit">Fecha Creacion</label>
-            <input type="text" name="txtfechaCreacionc" id="txtfechaCreacionc" required disabled />
+            <input
+              type="text"
+              name="txtfechaCreacionc"
+              id="txtfechaCreacionc"
+              required
+              disabled
+            />
           </div>
 
           <div class="form-groupbtn">

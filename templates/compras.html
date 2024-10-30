@@ -7,6 +7,8 @@
   <body>
     <!-- CONTENT -->
     {% include '/components/menu.html' %}
+    <canvas id="systemsCanvas"></canvas>
+
 
     <section id="content">
       <!-- NAVBAR -->
@@ -16,7 +18,7 @@
         {% include '/components/formCarritoCompra.html' %} {% include
         '/components/formagregarCompra.html' %} {% include
         '/components/formcompraver.html' %}
-
+    
         <div class="head-title">
           <div class="left">
             <h1>Generales</h1>
@@ -31,29 +33,22 @@
             </ul>
           </div>
         </div>
-
         <ul class="box-info">
           <li>
             <i class="bx bxs-calendar-check"></i>
             <span class="text">
-              <h3>100</h3>
+              <h3 id="txtcantidadCompras"></h3>
               <p class="colorGreen">Compras Realizadas</p>
             </span>
           </li>
           <li>
             <i class="bx bxs-group"></i>
             <span class="text">
-              <h3>2</h3>
+              <h3 id="txtenproceso">2</h3>
               <p class="colorRed">Compras En Procesos</p>
             </span>
           </li>
-          <li>
-            <i class="bx bxs-dollar-circle"></i>
-            <span class="text">
-              <h3>400</h3>
-              <p class="colorBlue">Total Productos</p>
-            </span>
-          </li>
+          
         </ul>
 
         <div class="tablePrincipal tableProductoxCompra">
@@ -78,7 +73,6 @@
             </thead>
             <tbody>
               {% for tb in tablePro %}
-
               <tr>
                 <td>{{tb.id}}</td>
                 <td>{{loop.index}}</td>
@@ -117,7 +111,7 @@
               <tr>
                 <td style="display: none">{{tb.id}}</td>
                 <td>{{loop.index}}</td>
-                <td>0{{tb.ordencomPra}}</td>
+                <td>0{{tb.id}}</td>
                 <td>{{tb.fechaOrden}}</td>
                 <td>{{tb.fechaIngreso}}</td>
                 <td>{{tb.proveedor}}</td>
@@ -163,6 +157,7 @@
       }
       pintar();
     </script>
+    <script src="/static/js/mainparticles.js"></script>
     <script src="/static/js/maintableCompras.js"></script>
     {%include '/components/footer.html' %}
   </body>

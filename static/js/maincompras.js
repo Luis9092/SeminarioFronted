@@ -22,6 +22,8 @@ const txtsubtotal = document.querySelector("#txtsubtotal");
 const txtnameImagen = document.querySelector("#txtnameImagen");
 const idprov = document.querySelector("#idprov");
 
+const txttotal = document.querySelector("#txttotal");
+
 if (btnAbrirModalCompra) {
     btnAbrirModalCompra.addEventListener("click", (e) => {
         modalCarrito.showModal();
@@ -64,11 +66,13 @@ async function obtenerOrdenCompora() {
     return retorno;
 }
 
+if (txtcantidadcompra) {
+    txtcantidadcompra.addEventListener("change", function () {
+        let sub = txtcantidadcompra.value * txtpreciocompra.value;
+        txtsubtotal.value = sub;
+    });
 
-txtcantidadcompra.addEventListener("change", function () {
-    let sub = txtcantidadcompra.value * txtpreciocompra.value;
-    txtsubtotal.value = sub;
-});
+}
 
 
 let dataCarrito = localStorage.getItem("dataCarrito"); //Obtener datos de localStorage
@@ -155,8 +159,8 @@ function ListarProductos() {
     txttotal.value = total;
 
     tabla.draw();
-    ocultarColumna(7);
-    ocultarColumna(1);
+    ocultarColumna(7, "tablecarrito");
+    ocultarColumna(1, "tablecarrito");
 }
 
 
@@ -269,8 +273,8 @@ function mostrartotal() {
 }
 
 
-function ocultarColumna(index) {
-    const tabla = document.getElementById("tablecarrito");
+function ocultarColumna(index, nombre) {
+    const tabla = document.getElementById(`${nombre}`);
 
     // Ocultar celdas en cada fila
     for (let i = 0; i < tabla.rows.length; i++) {
@@ -460,6 +464,7 @@ $(document).ready(function () {
 const modalCompraver = document.querySelector("#modalCompraver");
 const btn_cancelarcompraver = document.querySelector("#btn_cancelarcompraver");
 const btnsalir = document.querySelector("#btnsalir");
+const txtidcompra2 = document.querySelector("#txtidcompra2");
 
 $("#tableCompras").on("click", "tr td", function (evt) {
     let id, orden, fechaCompra, estado, prov;
@@ -474,11 +479,20 @@ $("#tableCompras").on("click", "tr td", function (evt) {
     const txtordenno = document.querySelector("#txtordenno");
     const txtfechaEnvio = document.querySelector("#txtfechaEnvio");
     const txtestado = document.querySelector("#txtestado");
+    txtidcompra2.value = id;
+
 
     txtverproveedor.value = prov;
     txtordenno.value = "0" + orden;
     txtfechaEnvio.value = fechaCompra;
     txtestado.value = estado;
+    obtnerComprasDetalle(id);
+
+    if (txtestado.value != "En Proceso") {
+        btnrecibido.style.display = "none";
+    } else {
+        btnrecibido.style.display = "block";
+    }
     modalCompraver.showModal();
 
 });
@@ -489,3 +503,227 @@ if (btn_cancelarcompraver) {
         modalCompraver.close();
     });
 }
+if (btnsalir) {
+    btnsalir.addEventListener("click", (e) => {
+        e.preventDefault();
+        modalCompraver.close();
+    });
+}
+
+
+let tablaComprasDetalle = $("#tableVerCompraDetalle").DataTable({
+    language: {
+        url: "https://cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json",
+    },
+    scrollY: true,
+    scrollX: true,
+    "bDestroy": true // Cambia a true para permitir la destrucción de la tabla
+});
+
+
+async function obtnerComprasDetalle(id) {
+    let retorno = 0;
+    try {
+        const response = await axios.get("http://127.0.0.1:8000/verComprasDetalle/<id>", {
+            params: {
+                id: Number(id),
+            },
+        });
+        if (response.status === 200) {
+
+            listadoProductosDetalle(response.data);
+
+        }
+    } catch (e) {
+        console.log(e);
+        return 0;
+    }
+    return retorno;
+}
+
+let listadoDetalleCompra = [];
+
+function listadoProductosDetalle(listado) {
+
+    listado.forEach(element => {
+        let miarray = {}
+        miarray["id"] = element.id;
+        miarray["idcompra"] = element.idcompra;
+        miarray["nombre"] = element.nombre;
+        miarray["cantidad"] = element.cantidad;
+        miarray["preciocosto"] = element.preciocosto;
+        miarray["descripcion"] = element.descripcion;
+        miarray["idproducto"] = element.idproducto;
+        listadoDetalleCompra.push(miarray);
+    });
+
+    pintarDetalleCompra();
+}
+function pintarDetalleCompra() {
+
+    let contador = 0;
+    let total2 = 0;
+    tablaComprasDetalle.clear();
+
+    listadoDetalleCompra.forEach(element => {
+        contador++;
+
+        tablaComprasDetalle.row.add([
+            contador,
+            element.idproducto,
+            element.nombre,
+            element.descripcion,
+            element.preciocosto,
+            element.cantidad,
+            (element.cantidad * element.preciocosto),
+            element.idcompra,
+            element.id
+        ]);
+        total2 += Number(element.cantidad * element.preciocosto);
+        tablaComprasDetalle.draw();
+
+    });
+
+    document.querySelector("#txttotalfinal").value = total2;
+    ocultarColumna(1, "tableVerCompraDetalle");
+    ocultarColumna(7, "tableVerCompraDetalle");
+    ocultarColumna(8, "tableVerCompraDetalle");
+}
+
+
+const btnrecibido = document.querySelector("#btnrecibido");
+
+if (btnrecibido) {
+
+
+    btnrecibido.addEventListener("click", (e) => {
+
+        Swal.fire({
+            target: document.querySelector("#modalCompraver"),
+            title: "¿La compra ha sido recibida?",
+            text: "Al elegir si, no se podra revertir el proceso",
+            icon: "info",
+            background: "#ffffff",
+            showCancelButton: true,
+            confirmButtonColor: "#0072ff",
+            cancelButtonColor: "#D2122E",
+            cancelButtonText: "Cancelar",
+            confirmButtonText: "Sí, Compra Recibida.",
+        }).then((result) => {
+            if (result.value) {
+                ActualizarStockCompra();
+            }
+        });
+
+
+
+    });
+}
+
+
+async function ActualizarStockCompra() {
+    const id = txtidcompra2.value;
+    const retorno = await actualizarEstadoC(id);
+    const validarEstado = txtestado.value;
+    if (validarEstado == "En Proceso") {
+        if (retorno == 1) {
+            for (const element of listadoDetalleCompra) {
+                console.log(element);
+                await ActualizarProductoStock(element.idproducto, element.cantidad);
+            }
+            modalCompraver.close();
+            Swal.fire({
+                title: "Compra Recibida",
+                text: "Cantidad Agregada Al Inventario",
+                icon: "success",
+                showCloseButton: true,
+
+            });
+        }
+    } else {
+        modalCompraver.close();
+        Swal.fire({
+            title: "Error",
+            text: "Esta Compra Ya Fue Recibida.",
+            icon: "info",
+            showCloseButton: true,
+
+        });
+    }
+
+
+}
+
+async function actualizarEstadoC(id) {
+    let retorno = 0;
+    const idfinal = Number(id);
+    try {
+        const response = await axios.put(`http://127.0.0.1:8000/actualizarEstadoCompra/<id>?id=${idfinal}`, {
+
+        });
+
+        if (response.status === 200) {
+            retorno = 1;
+        }
+    } catch (error) {
+        console.log(error);
+        retorno = 0;
+    }
+
+    return retorno;
+}
+
+async function ActualizarProductoStock(id, cantidad) {
+
+    let retorno = 0;
+    try {
+        const response = await axios.put("http://127.0.0.1:8000/actualizarStock", {
+            "id": Number(0),
+            "cantidad": Number(cantidad),
+            "idproducto": Number(id),
+        });
+
+        if (response.status === 200) {
+            retorno = 1;
+        }
+    } catch (error) {
+        console.log(error);
+        retorno = 0;
+    }
+
+    return retorno;
+
+}
+valores2();
+
+function valores2() {
+    const tabla = document.getElementById("tableCompras");
+    const txtcantidadCompras = document.querySelector("#txtcantidadCompras");
+    const txtenproceso = document.querySelector("#txtenproceso");
+    let enproceso = 0;
+    let completado = 0;
+    if (tabla) { // Verificar si la tabla no es null
+        for (let i = 1; i < tabla.rows.length; i++) {
+            let estado = tabla.rows[i].cells[4].innerText;
+            if (estado != "En Proceso") {
+                completado++;
+            } else {
+                enproceso++;
+            }
+        }
+        if (txtcantidadCompras) {
+            txtcantidadCompras.innerHTML = completado;
+            txtenproceso.innerHTML = enproceso;
+
+        }
+    } else {
+        // console.error("La tabla no existe.");
+        if (txtcantidadCompras) {
+            txtcantidadCompras.innerHTML = "0";
+            txtenproceso.innerHTML = "0";
+        }
+
+    }
+}
+
+

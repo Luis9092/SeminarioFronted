@@ -189,7 +189,11 @@ $(document).ready(function () {
         scrollY: true,
         scrollX: true,
     });
-})
+    valores();
+    obtenerVistaProductos();
+
+
+});
 
 
 
@@ -243,4 +247,134 @@ function limpiarForm() {
     btnActualizarProducto.style.display = "none";
     btnenviardProducto.style.display = "block";
 
+}
+
+function valores() {
+    const tabla = document.getElementById("tableProductos");
+    const txtpasivo = document.querySelector("#txtpasivo");
+    const txtganancia = document.querySelector("#txtganancia");
+    const valores = [];
+    let sumdinero = 0;
+
+    if (tabla) { // Verificar si la tabla no es null
+        for (let i = 1; i < tabla.rows.length; i++) {
+            const can = tabla.rows[i].cells[7].innerText;
+            let dinero = tabla.rows[i].cells[6].innerText;
+            sumdinero += Number(dinero);
+
+            valores.push(Number(can));
+        }
+
+        // Mostrar los valores
+        const suma = valores.reduce((acumulador, valorActual) => acumulador + valorActual, 0);
+        if (txtpasivo) {
+            txtpasivo.innerHTML = suma;
+            txtganancia.innerHTML = "Q. " + sumdinero;
+
+        }
+    } else {
+        // console.error("La tabla no existe.");
+        if (txtpasivo) {
+            txtpasivo.innerHTML = "0";
+            txtganancia.innerHTML = "Q. 0";
+        }
+
+    }
+
+}
+
+
+
+
+
+
+async function obtenerVistaProductos() {
+    let retorno = 0;
+    try {
+        const response = await axios.get("http://127.0.0.1:8000/vistaproductos", {
+        });
+        if (response.status === 200) {
+            retorno = response.data;
+            console.log(retorno);
+            pintarChart(retorno);
+        }
+    } catch (e) {
+        console.log(e);
+        return 0;
+    }
+    return retorno;
+}
+
+
+function pintarChart(dias) {
+    let diasSemana = [
+        { dia: "Monday", cantidad: 0, diam: "Lunes" },
+        { dia: "Tuesday", cantidad: 0, diam: "Martes" },
+        { dia: "Wednesday", cantidad: 0, diam: "Miercoles" },
+        { dia: "Thursday", cantidad: 0, diam: "Jueves" },
+        { dia: "Friday", cantidad: 0, diam: "Viernes" },
+        { dia: "Saturday", cantidad: 0, diam: "Sabado" },
+        { dia: "Sunday", cantidad: 0, diam: "Domingo" }
+    ];
+
+    // Crear un objeto para acceder rápidamente a las cantidades
+    const cantidades = {};
+    dias.forEach(element => {
+        cantidades[element.dia] = element.cantidad;
+    });
+
+    // Actualizar las cantidades en diasSemana
+    diasSemana.forEach(element => {
+        element.cantidad = cantidades[element.dia] || 0;
+    });
+
+    console.log(diasSemana);
+    pintarDatosChart(diasSemana);
+}
+
+function pintarDatosChart(diasSemana) {
+    let cantidaddias = [];
+    let dias = [];
+
+    diasSemana.forEach(element => {
+        cantidaddias.push(element.cantidad);
+        dias.push(element.diam);
+
+    });
+
+    var options = {
+        series: [{
+            name: 'Dia',
+            type: 'column',
+            data: cantidaddias,
+        }, {
+            name: 'Dia',
+            type: 'line',
+            data: cantidaddias
+        }],
+        chart: {
+            height: 350,
+            type: 'line',
+        },
+        stroke: {
+            width: [0, 4]
+        },
+        colors: ['#bd6eff', '#00ff97'],
+
+        dataLabels: {
+            enabled: true,
+            enabledOnSeries: [1]
+        },
+        labels: dias,
+    };
+    // var chart = new ApexCharts(document.querySelector("#chart"), options);
+    // chart.render();
+    var chartjs = document.querySelector("#chart");
+
+    if (chartjs) { // Verificar si chart no es null
+        var chart = new ApexCharts(chartjs, options);
+        chart.render();
+    } else {
+        // console.error("El gráfico no se pudo crear.");
+    }
 }
