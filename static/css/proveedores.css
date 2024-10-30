@@ -4,18 +4,18 @@
     box-sizing: border-box;
 }
 
-body {
+/* body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #afceee;
     color: #333;
-}
+} */
 
-header {
+/* header {
     background-color: #4CAF50;
     padding: 20px;
     text-align: center;
     color: white;
-}
+} */
 
 h1 {
     font-size: 2.5em;
