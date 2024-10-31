@@ -274,7 +274,6 @@ let botonCliente = document.getElementsByName("accionCliente");
 for (const btn of botonCliente) {
     btn.addEventListener("click", function (e) {
         let valor = this.value;
-        alert(valor);
         submitController();
 
         notificarProcesoCliente(valor);
@@ -305,7 +304,6 @@ function notificarProcesoCliente(valor) {
 function enviarformCliente(valor) {
 
     let formProducto = $("#formCliente");
-
     formProducto.submit(function (e) {
         e.preventDefault();
 

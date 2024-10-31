@@ -7,26 +7,6 @@ class autenticarse:
     def __init__(self) -> None:
         pass
 
-    # def autenticarusuario(self, email, pasw):
-    #     url = "http://127.0.0.1:8000/api/inventario/log/<correol><pasw>"
-    #     parametros = {"correol": email, "pasw": pasw}
-    #     x = requests.get(url, parametros)
-    #     response = {}
-    #     if x.status_code == 200:
-    #         data = x.json()
-    #         session["nombres"] = data["nombres"]
-    #         session["apellidos"] = data["apellidos"]
-    #         m = data["pintarMenu"]
-    #         print(m)
-    #         response = {"status": 200, "estado": 1, "mensaje": m}
-    #     else:
-    #         response = {
-    #             "status": 400,
-    #             "estado": 0,
-    #             "mensaje": "Las credenciales no son correctas!!",
-    #         }
-    #     return response
-
     def crearCuenta(self, nombres, apellidos, correo, pasw):
         url = "http://127.0.0.1:8000/crearUsuario"
         response = {}
@@ -44,6 +24,18 @@ class autenticarse:
 
         if retorno.status_code == 201:
             response = {"estado": 1, "mensaje": "Usuario Creado Correctamente"}
+        else:
+            response = {"estado": 0, "mensaje": "Por Favor Verificar Los Datos"}
+        return response
+
+    def modificarPass(self, id, passw, passnueva):
+        url = "http://127.0.0.1:8000/cambiarpass"
+        response = {}
+        parametros = {"id": id, "passw": passw, "passNueva": passnueva}
+        retorno = requests.post(url, data=json.dumps(parametros))
+
+        if retorno.status_code == 200:
+            response = {"estado": 1, "mensaje": "Contrasenia Modificada Correctamente"}
         else:
             response = {"estado": 0, "mensaje": "Por Favor Verificar Los Datos"}
         return response

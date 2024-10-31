@@ -22,7 +22,7 @@ const txtsubtotal = document.querySelector("#txtsubtotal");
 const txtnameImagen = document.querySelector("#txtnameImagen");
 const idprov = document.querySelector("#idprov");
 
-const txttotal = document.querySelector("#txttotal");
+const txttotal22 = document.querySelector("#txttotal");
 
 if (btnAbrirModalCompra) {
     btnAbrirModalCompra.addEventListener("click", (e) => {
@@ -156,7 +156,7 @@ function ListarProductos() {
         total += Number(d.subtotal);
     }
 
-    txttotal.value = total;
+    txttotal22.value = total;
 
     tabla.draw();
     ocultarColumna(7, "tablecarrito");

@@ -10,6 +10,7 @@
   </head>
   <body>
     {% include '/components/menu.html' %}
+    <canvas id="systemsCanvas"></canvas>
 
     <section id="content">
       {% include '/components/perfil.html' %}
@@ -29,7 +30,14 @@
             </ul>
           </div>
         </div>
-        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          "
+        >
           <button class="btn" id="CrearUsuario">Agregar Usuario</button>
         </div>
         <div class="table-data">
@@ -58,18 +66,15 @@
     </section>
 
     {% include '/components/footer.html' %}
+    <script src="/static/js/mainparticles.js"></script>
 
     <script>
-        const CrearUsuario  = document.querySelector("#CrearUsuario");
-        if(CrearUsuario){
-            CrearUsuario.addEventListener("click", (e) =>{
-                window.location.replace("/crearcuenta");
-            
-            });
-        }
-    
-
-
+      const CrearUsuario = document.querySelector("#CrearUsuario");
+      if (CrearUsuario) {
+        CrearUsuario.addEventListener("click", (e) => {
+          window.location.replace("/crearcuenta");
+        });
+      }
 
       async function obtenerUsuarios() {
         try {

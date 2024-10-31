@@ -85,7 +85,8 @@ def iniciarSesion():
         session["perfil"] = per
         session["nombres"] = per["nombres"] + " " + per["apellidos"]
         session["role"] = per["idrol"]
-
+        session["correo"] = per["correo"]
+        session["id"] = per["id"]
         print(per)
         respuesta = {"estado": 1, "mensaje": "Autenticacion Encontrada"}
         return json.dumps(respuesta)
@@ -94,6 +95,22 @@ def iniciarSesion():
         return json.dumps(respuesta)
 
     # return redirect(url_for("root"))
+
+
+@app.route("/operacionespassuser/<string:accion>", methods=["POST"])
+def operacionespassuser(accion):
+    operacion = accion
+    txtcontraseniaanterior = request.form["txtcontraseniaanterior"]
+    txtrepetircontrasenia = request.form["txtrepetircontrasenia"]
+    id = session.get("id")
+    us = autenticarse()
+
+    if operacion == "modificar":
+        retorno = us.modificarPass(
+            id=id, passw=txtcontraseniaanterior, passnueva=txtrepetircontrasenia
+        )
+
+        return json.dumps(retorno)
 
 
 @app.route("/productosOperaciones/<string:accion>", methods=["POST"])

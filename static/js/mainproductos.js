@@ -54,6 +54,7 @@ if (inputarchivoFoto) {
 
                 fileReader.onload = function (event) {
                     verImagen.src = event.target.result;
+                    console.log(event.target.result);
                     estadoProductoForm = 1;
                     btnenviardProducto.disabled = false;
                     alertModal("#00dfdf", "Imagen Agregada correctamente!!", "success",)

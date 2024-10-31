@@ -20,13 +20,12 @@
   <body>
     <!-- CONTENT -->
     {% include '/components/menu.html' %}
+    <canvas id="systemsCanvas"></canvas>
 
     <section id="content">
       <!-- NAVBAR -->
       {% include '/components/perfil.html' %} {% include
       '/components/formularioClientes.html' %}
-
-
 
       <main>
         <div class="head-title">
@@ -70,94 +69,113 @@
         </ul>
       </main>
 
+      <!-- Botón para abrir el modal -->
+      <section class="form-section">
+        <button id="btnAgregarProveedor" class="btn">Agregar</button>
+      </section>
 
-    <header>
-      <h1>Gestión de Proveedores</h1>
-    </header>
+      <!-- Modal de Proveedores -->
 
-    <!-- Botón para abrir el modal -->
-    <section class="form-section">
-      <button id="btnAgregarProveedor" class="btn-agregar">
-        Agregar 
-      </button>
+      <dialog id="modalProveedores">
+        <div class="containerProductoform">
+          <h3 class="title"> <span>Agregar Proveedor</span></h3>
+          <form id="formProveedor">
+            <div class="form-group">
+              <label for="nombre">Nombre:</label>
+              <input type="text" id="nombre" name="nombre" required />
+            </div>
+            <div class="form-group">
+              <label for="telefono">Teléfono:</label>
+              <input type="text" id="telefono" name="telefono" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+
+            <div class="form-groupbtn">
+              <button type="button" id="btnenviarProveedor" class="btn">
+                Agregar Proveedor
+              </button>
+              <button
+                type="button"
+                id="btn_cancelarProveedor"
+                class="btn"
+              >
+                Cancelar
+              </button>
+            </div>
+          </form>
+        </div>
+      </dialog>
+
+      <!-- Tabla de Proveedores -->
+      <div class="tablePrincipal tp" style="margin: 20px">
+        <h2>Lista de Proveedores</h2>
+        <table id="tableProveedores" class="display">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Teléfono</th>
+              <th>Email</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for proveedor in tableProveedores %}
+            <tr data-id="{{ proveedor.id }}">
+              <td>{{ proveedor.id }}</td>
+              <td>{{ proveedor.nombre }}</td>
+              <td>{{ proveedor.telefono }}</td>
+              <td>{{ proveedor.email }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="delete-btn"
+                  data-id="{{ proveedor.id }}"
+                >
+                  Eliminar
+                </button>
+                <button
+                  type="button"
+                  class="update-btn"
+                  data-id="{{ proveedor.id }}"
+                >
+                  Actualizar
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </section>
 
-    <!-- Modal de Proveedores -->
-    <dialog id="modalProveedores">
-      <h2>Agregar Proveedor</h2>
-      <form id="formProveedor">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required />
-    
-        <label for="telefono">Teléfono:</label>
-        <input type="text" id="telefono" name="telefono" required />
-    
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required />
-    
-        <button type="button" id="btnenviarProveedor" class="btn-submit">
-          Agregar Proveedor
+    <!-- Modal para actualizar proveedor -->
+    <dialog id="modalActualizarProveedor">
+      <h2>Actualizar Proveedor</h2>
+      <form id="formActualizarProveedor" method="POST">
+        <label for="nombreActualizar">Nombre:</label>
+        <input type="text" id="nombreActualizar" name="nombre" required />
+
+        <label for="telefonoActualizar">Teléfono:</label>
+        <input type="text" id="telefonoActualizar" name="telefono" required />
+
+        <label for="emailActualizar">Email:</label>
+        <input type="email" id="emailActualizar" name="email" required />
+
+        <input type="hidden" id="proveedorIdActualizar" name="proveedor_id" />
+
+        <button type="button" id="btnActualizarProveedor" class="btn-submit">
+          Actualizar
         </button>
-        <button type="button" id="btn_cancelarProveedor" class="btn-cancelar">
+        <button type="button" id="btnCancelarActualizar" class="btn-cancelar">
           Cancelar
         </button>
       </form>
     </dialog>
-    
-
-    <!-- Tabla de Proveedores -->
-    <section class="table-section">
-      <h2>Lista de Proveedores</h2>
-      <table id="tableProveedores" class="display">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Teléfono</th>
-            <th>Email</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for proveedor in tableProveedores %}
-          <tr data-id="{{ proveedor.id }}">
-            <td>{{ proveedor.id }}</td>
-            <td>{{ proveedor.nombre }}</td>
-            <td>{{ proveedor.telefono }}</td>
-            <td>{{ proveedor.email }}</td>
-            <td>
-              <button type="button" class="delete-btn" data-id="{{ proveedor.id }}">Eliminar</button>
-              <button type="button" class="update-btn" data-id="{{ proveedor.id }}">Actualizar</button>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </section>
-
-
-
-
-      <!-- Modal para actualizar proveedor -->
-  <dialog id="modalActualizarProveedor">
-    <h2>Actualizar Proveedor</h2>
-    <form id="formActualizarProveedor" method="POST">
-      <label for="nombreActualizar">Nombre:</label>
-      <input type="text" id="nombreActualizar" name="nombre" required />
-
-      <label for="telefonoActualizar">Teléfono:</label>
-      <input type="text" id="telefonoActualizar" name="telefono" required />
-
-      <label for="emailActualizar">Email:</label>
-      <input type="email" id="emailActualizar" name="email" required />
-
-      <input type="hidden" id="proveedorIdActualizar" name="proveedor_id" />
-
-      <button type="button" id="btnActualizarProveedor" class="btn-submit">Actualizar</button>
-      <button type="button" id="btnCancelarActualizar" class="btn-cancelar">Cancelar</button>
-    </form>
-  </dialog>
-
+    <script src="/static/js/mainparticles.js"></script>
     <!-- Incluir jQuery y DataTable -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>

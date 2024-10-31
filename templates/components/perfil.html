@@ -1,16 +1,124 @@
 <nav>
-    <i class="bx bx-menu"></i>
-  
-    <form action="#">
-      <div class="form-input">
-        <p>Bienvenido(a) {{session['nombres'] }} ❤️</p>
+  <i class="bx bx-menu"></i>
+
+  <form action="#">
+    <div class="form-input">
+      <p>Bienvenido(a) {{session['nombres'] }} ❤️</p>
+    </div>
+  </form>
+  <input type="checkbox" id="switch-mode" hidden />
+  <label for="switch-mode" class="switch-mode"></label>
+
+  <a href="#" class="profile" id="ventanaPerfil">
+    <img src="/static/img/perfil.png" />
+  </a>
+</nav>
+
+<dialog id="modalPerfilUser">
+  <div class="container">
+    <div class="info-container" id="InfoCont">
+      <!-- <div class="container-form"> -->
+
+      <br />
+
+      <div class="containerProductoform">
+        <div id="btn_salirPerfil" class="btn_cancelar">
+          <i class="bx bx-x"></i>
+        </div>
+        <h3 class="title"><span>Formulario Productos </span></h3>
+        <form
+          method="POST"
+          action="/operacionespassuser"
+          id="formOperacionespass"
+          enctype="multipart/form-data"
+        >
+          <div class="formImagen">
+            <img
+              src="/static/img/ventasimagen.jpg"
+              alt="ImagenUsuario"
+              id="txtimagenUser123"
+            />
+          </div>
+
+          <div class="row2">
+            <div class="form-group">
+              <label for="nombre">Nombres</label>
+              <input
+                type="text"
+                id="txtx"
+                name="txt"
+                value="{{session['nombres']}}"
+                required
+                disabled
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="nombre">Nombres</label>
+              <input
+                type="text"
+                id="txtyja"
+                name="txtyja"
+                value="{{session['correo']}}"
+                required
+                disabled
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="nombre">Contrasenia Anterior</label>
+            <input
+              type="password"
+              id="txtcontraseniaanterior"
+              name="txtcontraseniaanterior"
+              required
+            />
+          </div>
+          <div class="row2">
+            <div class="form-group">
+              <label for="nombre">Contrasenia Nueva</label>
+              <input
+                type="password"
+                id="txtcontrasenia"
+                name="txtcontrasenia"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="nombre">Repetir Contrasenia</label>
+              <input
+                type="password"
+                id="txtrepetircontrasenia"
+                name="txtrepetircontrasenia"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-groupbtn">
+            <button
+              type="button"
+              class="btn"
+              name="accion"
+              value="modificar"
+              id="btncambiarpasss"
+            >
+              Cambiar Password
+            </button>
+
+            <button
+              type="button"
+              class="btn"
+              name="accion"
+              value="agregar"
+              id="btnsalirPerfil"
+            >
+              Salir
+            </button>
+          </div>
+        </form>
       </div>
-    </form>
-    <input type="checkbox" id="switch-mode" hidden />
-    <label for="switch-mode" class="switch-mode"></label>
-  
-    <a href="#" class="profile">
-      <img src="/static/img/perfil.png" />
-    </a>
-  </nav>
-  
+    </div>
+  </div>
+</dialog>

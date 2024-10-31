@@ -18,61 +18,58 @@
   </head>
   <body>
     {% include '/components/menu.html' %}
+    <canvas id="systemsCanvas"></canvas>
 
     <section id="content">
       {% include '/components/perfil.html' %}
 
       <main>
-
-
-
-          <div class="head-title">
-            <div class="left">
-              <h1>Generales</h1>
-              <ul class="breadcrumb">
-                <li>
-                  <a href="#">Generales</a>
-                </li>
-                <li><i class="bx bx-chevron-right"></i></li>
-                <li>
-                  <a class="active" href="#">Ventas</a>
-                </li>
-              </ul>
-            </div>
+        <div class="head-title">
+          <div class="left">
+            <h1>Generales</h1>
+            <ul class="breadcrumb">
+              <li>
+                <a href="#">Generales</a>
+              </li>
+              <li><i class="bx bx-chevron-right"></i></li>
+              <li>
+                <a class="active" href="#">Ventas</a>
+              </li>
+            </ul>
           </div>
-          {% set total_items = tableCliente | length%}
-  
-          <ul class="box-info">
-            <li>
-              <i class="bx bxs-calendar-check"></i>
-              <span class="text">
-                <h3>{{total_items}}</h3>
-                <p class="colorGreen">Total Ventas</p>
-              </span>
-            </li>
-            <li>
-              <i class="bx bxs-group"></i>
-              <span class="text">
-                <h3></h3>
-                <p class="colorRed">Dedicacion</p>
-              </span>
-            </li>
-            <li>
-              <i class="bx bxs-dollar-circle"></i>
-              <span class="text">
-                <h3></h3>
-                <p class="colorBlue">Transparencia</p>
-              </span>
-            </li>
-          </ul>
+        </div>
+        {% set total_items = tableCliente | length%}
 
-
-
+        <ul class="box-info">
+          <li>
+            <i class="bx bxs-calendar-check"></i>
+            <span class="text">
+              <h3>{{total_items}}</h3>
+              <p class="colorGreen">Total Ventas</p>
+            </span>
+          </li>
+          <li>
+            <i class="bx bxs-group"></i>
+            <span class="text">
+              <h3></h3>
+              <p class="colorRed">Dedicacion</p>
+            </span>
+          </li>
+          <li>
+            <i class="bx bxs-dollar-circle"></i>
+            <span class="text">
+              <h3></h3>
+              <p class="colorBlue">Transparencia</p>
+            </span>
+          </li>
+        </ul>
 
         <!-- Botón para abrir el modal -->
-        <button id="btnAgregarVenta" class="btn btn-primary">
-          Agregar Venta
-        </button>
+        <div class="form-groupbtn" style="margin: 12px 0;">
+          <button id="btnAgregarVenta" class="btn btn-primary">
+            Agregar Venta
+          </button>
+        </div>
 
         <!-- Modal para agregar venta -->
         <!-- Modal para agregar venta -->
@@ -233,7 +230,7 @@
         </div>
       </main>
     </section>
-
+    <script src="/static/js/mainparticles.js"></script>
     <!-- Incluir scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!-- DataTables JS -->
